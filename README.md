@@ -51,13 +51,15 @@
 GOOGLE_SHEET_ID="ВАШ_ID_ТАБЛИЦЫ"
 
 # Учетные данные сервисного аккаунта Google в формате Base64.
+# Эта переменная содержит в себе всю необходимую информацию, включая
+# GOOGLE_SERVICE_ACCOUNT_EMAIL и GOOGLE_PRIVATE_KEY.
 GOOGLE_CREDENTIALS_BASE64="ВАШИ_УЧЕТНЫЕ_ДАННЫЕ_В_BASE64"
 ```
 
 ### Как получить `GOOGLE_CREDENTIALS_BASE64`:
 
 1.  Создайте сервисный аккаунт в [Google Cloud Console](https://console.cloud.google.com/).
-2.  Скачайте JSON-файл с ключами для этого аккаунта.
+2.  Скачайте JSON-файл с ключами для этого аккаунта. Этот файл будет содержать `client_email` (это и есть `GOOGLE_SERVICE_ACCOUNT_EMAIL`) и `private_key` (`GOOGLE_PRIVATE_KEY`).
 3.  **Не добавляйте этот JSON-файл в репозиторий!**
 4.  Сконвертируйте содержимое этого JSON-файла в строку Base64. Это можно сделать с помощью онлайн-конвертеров или командой в терминале:
     ```bash
