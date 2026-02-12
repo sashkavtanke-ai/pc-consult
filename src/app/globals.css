@@ -1,0 +1,236 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Универсальный класс для эффекта "frosted glass" без Tailwind, только CSS */
+.frosted-glass {
+  background-color: var(--frosted-bg);
+  /* Прозрачность задаётся через переменную --frosted-bg */
+  backdrop-filter: blur(6px); /* Размытие фона, чем больше значение, тем сильнее размытие */
+  -webkit-backdrop-filter: blur(6px); /* Для Safari поддержка размытия фона */
+  border-radius: 1rem;
+  padding: 1rem;
+  margin: 0.5rem;
+  /* Плавный переход для визуального эффекта */
+  transition: background-color 0.3s, backdrop-filter 0.3s;
+}
+
+/* Адаптивные отступы и padding для .frosted-glass */
+@media (min-width: 768px) {
+  .frosted-glass {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+}
+
+/* Прозрачный фон для body, чтобы был виден анимированный слой */
+
+:root {
+  /* Цветовые токены из дизайн-системы (light theme) */
+  --color-primary: #0A2540;      /* Основной фон, заголовки */
+  /* Frosted glass background для светлой темы */
+  --frosted-bg: rgba(245,247,250,0.6); /* Прозрачный белый. Чем меньше, тем прозрачнее*/
+  --color-accent: #FF6E3A;       /* CTA-кнопки, интерактивные элементы */
+  --color-bg: #F5F7FA;           /* Основной фон страницы */
+  --color-surface: #F5F7FA;      /* Фон карточек и модалок */
+  --color-text: #333333;         /* Основной текст */
+  --color-text-muted: #666666;   /* Второстепенный текст */
+  --color-border: #E0E0E0;       /* Разделители и границы */
+
+  /* Typography */
+  --font-h1: clamp(2.2rem, 1.15vw + 1.9rem, 3rem);
+  --font-h2: clamp(1.7rem, 1vw + 1.3rem, 2.2rem);
+  --font-h3: clamp(1.3rem, 0.7vw + 1.1rem, 1.7rem);
+  --font-h4: clamp(1.1rem, 0.5vw + 1rem, 1.25rem);
+  --font-body: clamp(1rem, 0.2vw + 0.95rem, 1.1rem);
+  --font-sm: clamp(0.875rem, 0.1vw + 0.85rem, 0.95rem);
+
+  /* Spacing */
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 40px;
+
+  /* Border radius */
+  --radius-card: 8px;
+  --radius-button: 4px;
+  /* Shadow */
+  --shadow-card: 0 1px 4px rgba(0,0,0,0.1);
+  /* Z-index */
+  --z-modal: 50;
+  --z-header: 40;
+  /* Transition duration */
+  --duration-fast: 200ms;
+  --duration-medium: 300ms;
+  --duration-slow: 500ms;
+
+  /* Logical spacing */
+  --container-padding-inline: 24px;
+  --section-padding-block: 40px;
+
+  color-scheme: light dark;
+}
+
+/* Темная тема — токены из дизайн-системы */
+/*@media (prefers-color-scheme: dark) {
+/*  :root {
+/*    --color-primary: #F5F7FA;      /* Основной фон, заголовки */
+/*    --color-accent: #FF8A4D;       /* CTA-кнопки, интерактивные элементы */
+/*    --color-bg: #0A2540;           /* Основной фон страницы */
+/*    --color-surface: #0A2540;      /* Фон карточек и модалок */
+/*    --color-text: #F5F7FA;         /* Основной текст */
+/*    --color-text-muted: #B0B8C9;   /* Второстепенный текст */
+/*    /* Frosted glass background для тёмной темы */
+/*    --frosted-bg: rgba(10,37,64,0.8); /* Прозрачный чёрный */
+/*    --color-border: #22345A;       /* Разделители и границы */
+/*  */
+/*} */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.2ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.2ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+  color: var(--color-text);
+  background: var(--color-bg, #f5f7fa);
+  /* background убран, чтобы body был прозрачным и анимация была видна */
+}
+
+/* Динамический фон — плавный градиент на фирменных цветах, управляется custom properties */
+.dynamic-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+  background: var(--color-bg); /* Используем переменную для фона */
+  will-change: background;
+}
+
+/* Динамический фон — фиксированный градиент под контентом */
+/* Удалён дублирующий блок .dynamic-bg с жёстким градиентом, чтобы не перекрывать --color-bg */
+
+.text-h1 { font-size: var(--font-h1); }
+.text-h2 { font-size: var(--font-h2); }
+.text-h3 { font-size: var(--font-h3); }
+.text-h4 { font-size: var(--font-h4); }
+.text-body { font-size: var(--font-body); }
+.text-sm { font-size: var(--font-sm); }
+
+.text-accent {
+  color: #DB4C2A;
+  font-weight: bold;
+}
+
+/* ===== Timeline styles for HistoryTimeline ===== */
+
+/* Линия таймлайна */
+.bg-border {
+  background-color: var(--color-border);
+}
+
+/* Точка года */
+.bg-accent {
+  background-color: var(--color-accent);
+  border: 2px solid var(--color-bg);
+  box-shadow: 0 0 0 4px var(--color-border);
+}
+
+/* Карточка таймлайна */
+.bg-surface {
+  background: var(--color-surface);
+}
+.rounded-card {
+  border-radius: var(--radius-card);
+}
+.shadow-card {
+  box-shadow: var(--shadow-card);
+}
+
+/* Чередование сторон */
+.timeline-left {
+  align-items: flex-start;
+}
+.timeline-right {
+  align-items: flex-end;
+}
+
+/* Адаптивность: мобильные — всё по центру, десктоп — чередование */
+@media (max-width: 768px) {
+  .timeline-left,
+  .timeline-right {
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  .timeline-left .bg-accent,
+  .timeline-right .bg-accent {
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
+  }
+  .timeline-left,
+  .timeline-right {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .timeline-left .bg-surface,
+  .timeline-right .bg-surface {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+
+/* Отступы между карточками */
+.timeline-left,
+.timeline-right {
+  margin-bottom: 2rem;
+}
+
+.input-base {
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-button);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input-base:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 2px var(--color-accent);
+  outline: none;
+}
+
+.label-base {
+  color: var(--color-text-muted);
+}
+
+.button-base {
+  background: var(--color-accent);
+  color: #000;
+  border-radius: var(--radius-button);
+  font-weight: 600;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.button-base:hover {
+  background: var(--color-accent);
+  opacity: 0.9;
+}
+
+.button-base:active {
+  transform: scale(0.97);
+}
+
+.button-base:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

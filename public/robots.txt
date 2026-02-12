@@ -1,0 +1,11 @@
+# Default rule: allow all friendly crawlers
+User-agent: *
+Allow: /
+
+# Disallow crawling of private folders
+Disallow: /api/
+Disallow: /docs/
+Disallow: /documents/
+
+# Specify the location of the sitemap
+Sitemap: https://pc-consult.ru/sitemap.xml

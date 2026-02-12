@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  pc_consult:
+    container_name: pc_consult
+    build:
+      context: .
+      dockerfile: Dockerfile.pc_consult
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    networks:
+      - n8n_network
+    # (опционально) тома, если нужно для отладки или разработки
+    # volumes:
+    #   - .:/app
+    #   - /app/node_modules
+
+networks:
+  n8n_network:
+    external: true

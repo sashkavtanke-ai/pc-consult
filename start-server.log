@@ -1,0 +1,11 @@
+
+> pc-site@0.1.0 start C:\docker\PROD\pc-consult
+> next start "--hostname" "0.0.0.0" "--port" "3000"
+
+   ▲ Next.js 15.3.4
+   - Local:        http://localhost:3000
+   - Network:      http://0.0.0.0:3000
+
+ ✓ Starting...
+ ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+ ✓ Ready in 1403ms
