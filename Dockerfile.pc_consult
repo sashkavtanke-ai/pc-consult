@@ -1,45 +1,39 @@
-# ---------- Этап сборки ----------
+# ---------- Build stage ----------
 FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-# Установка PNPM
+# Install pnpm
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
-# Копируем только манифесты
+# Copy lockfiles first for better layer cache
 COPY package.json pnpm-lock.yaml ./
 
-# Установка зависимостей
+# Install dependencies
 RUN pnpm install --frozen-lockfile
 
-# Копируем весь проект без node_modules
+# Copy source and build
 COPY . .
-
-# Сборка Next.js проекта
 RUN pnpm build
 
-# ---------- Финальный образ ----------
+# ---------- Final stage ----------
 FROM node:20-alpine
 
 WORKDIR /app
 
-# Установка PNPM
+# Install pnpm and curl in runtime image
 RUN corepack enable && corepack prepare pnpm@latest --activate
-
-# Установка curl (опционально)
 RUN apk add --no-cache curl
 
-# Копируем собранный проект
+# Copy runtime files
 COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
 
-# Установка переменной окружения
 ENV NODE_ENV=production
 
-# Экспонируем порт
 EXPOSE 3000
 
-# Запуск
+# Start Next.js production server
 CMD ["pnpm", "start"]
