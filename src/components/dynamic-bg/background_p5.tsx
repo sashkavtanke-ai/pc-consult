@@ -1,6 +1,6 @@
-import { useEffect, useRef } from "react";
+﻿import { useEffect, useRef } from "react";
 
-// Импортируем p5 только на клиенте
+// РРјРїРѕСЂС‚РёСЂСѓРµРј p5 С‚РѕР»СЊРєРѕ РЅР° РєР»РёРµРЅС‚Рµ
 let p5Instance: any = null;
 import bgConfig from "./config_bg";
 
@@ -11,9 +11,9 @@ export default function BackgroundP5() {
     let p5: any;
     let sketch: (p: any) => void;
 
-    // --- p5-скетч пользователя ---
+    // --- p5-СЃРєРµС‚С‡ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ ---
     sketch = (p: any) => {
-      // Интерфейс для узла
+      // РРЅС‚РµСЂС„РµР№СЃ РґР»СЏ СѓР·Р»Р°
       interface Node {
         position: any;
         velocity: any;
@@ -24,7 +24,7 @@ export default function BackgroundP5() {
         update(): void;
         display(): void;
       }
-      // Интерфейс для соединения (индексы двух узлов)
+      // РРЅС‚РµСЂС„РµР№СЃ РґР»СЏ СЃРѕРµРґРёРЅРµРЅРёСЏ (РёРЅРґРµРєСЃС‹ РґРІСѓС… СѓР·Р»РѕРІ)
       type Connection = [number, number];
 
       let nodes: Node[] = [];
@@ -32,7 +32,7 @@ export default function BackgroundP5() {
       const settings = bgConfig;
 
       p.setup = () => {
-        // Сброс массивов при каждом запуске скетча
+        // РЎР±СЂРѕСЃ РјР°СЃСЃРёРІРѕРІ РїСЂРё РєР°Р¶РґРѕРј Р·Р°РїСѓСЃРєРµ СЃРєРµС‚С‡Р°
         nodes = [];
         connections = [];
         p.createCanvas(window.innerWidth, window.innerHeight);
@@ -74,8 +74,8 @@ export default function BackgroundP5() {
       };
 
       p.draw = () => {
-        p.clear(); // прозрачный фон, чтобы не затирать вибрацию
-        // --- Проверка наведения курсора на лучи основных узлов ---
+        p.clear(); // РїСЂРѕР·СЂР°С‡РЅС‹Р№ С„РѕРЅ, С‡С‚РѕР±С‹ РЅРµ Р·Р°С‚РёСЂР°С‚СЊ РІРёР±СЂР°С†РёСЋ
+        // --- РџСЂРѕРІРµСЂРєР° РЅР°РІРµРґРµРЅРёСЏ РєСѓСЂСЃРѕСЂР° РЅР° Р»СѓС‡Рё РѕСЃРЅРѕРІРЅС‹С… СѓР·Р»РѕРІ ---
         for (const node of nodes) {
           if (!node.isMajor) continue;
           let direction = p5.Vector.sub(node.position, node.tetherPoint);
@@ -86,12 +86,12 @@ export default function BackgroundP5() {
             endPoint.x, endPoint.y
           );
           if (dist < settings.hitThreshold) {
-            // Запускаем вибрацию только если она не активна
+            // Р—Р°РїСѓСЃРєР°РµРј РІРёР±СЂР°С†РёСЋ С‚РѕР»СЊРєРѕ РµСЃР»Рё РѕРЅР° РЅРµ Р°РєС‚РёРІРЅР°
             if (!node.isVibrating || node.vibrationAmplitude < 0.1) {
               node.isVibrating = true;
               node.vibrationAmplitude = settings.vibrationAmplitude;
               node.vibrationStartTime = p.millis();
-              // Сохраняем положение наведения вдоль луча (tHover)
+              // РЎРѕС…СЂР°РЅСЏРµРј РїРѕР»РѕР¶РµРЅРёРµ РЅР°РІРµРґРµРЅРёСЏ РІРґРѕР»СЊ Р»СѓС‡Р° (tHover)
               const dx = endPoint.x - node.position.x;
               const dy = endPoint.y - node.position.y;
               const len = Math.hypot(dx, dy);
@@ -101,13 +101,13 @@ export default function BackgroundP5() {
                 tHover = Math.max(0, Math.min(1, tx / (len * len)));
               }
               node.vibrationClickT = tHover;
-              // Импульс перпендикулярно лучу
+              // РРјРїСѓР»СЊСЃ РїРµСЂРїРµРЅРґРёРєСѓР»СЏСЂРЅРѕ Р»СѓС‡Сѓ
               const perp = p.createVector(-(endPoint.y - node.position.y), endPoint.x - node.position.x).normalize();
               perp.mult(settings.impulseStrength);
               node.velocity.add(perp);
             }
           }
-          // --- Сброс вибрации через 3 секунды ---
+          // --- РЎР±СЂРѕСЃ РІРёР±СЂР°С†РёРё С‡РµСЂРµР· 3 СЃРµРєСѓРЅРґС‹ ---
           if (node.isVibrating && p.millis() - node.vibrationStartTime > 3000) {
             node.isVibrating = false;
             node.vibrationAmplitude = 0;
@@ -134,19 +134,19 @@ export default function BackgroundP5() {
           if (node.isMajor) {
             const weight = p.map(node.position.z, -settings.zDepth, settings.zDepth, settings.minLineWeight, settings.maxLineWeight * 1.2);
             const alpha = p.map(node.position.z, -settings.zDepth, settings.zDepth, 60, 180);
-            // Используем majorNodeColor для лучей основных узлов
+            // РСЃРїРѕР»СЊР·СѓРµРј majorNodeColor РґР»СЏ Р»СѓС‡РµР№ РѕСЃРЅРѕРІРЅС‹С… СѓР·Р»РѕРІ
             p.stroke(...settings.majorNodeColor, alpha);
             p.strokeWeight(p.constrain(weight, settings.minLineWeight, settings.maxLineWeight));
             let direction = p5.Vector.sub(node.position, node.tetherPoint);
             const endPoint = p5.Vector.add(node.position, direction.setMag(settings.rayLength));
-            // --- Вибрация: если активна, рисуем синусоиду с максимумом в месте клика ---
+            // --- Р’РёР±СЂР°С†РёСЏ: РµСЃР»Рё Р°РєС‚РёРІРЅР°, СЂРёСЃСѓРµРј СЃРёРЅСѓСЃРѕРёРґСѓ СЃ РјР°РєСЃРёРјСѓРјРѕРј РІ РјРµСЃС‚Рµ РєР»РёРєР° ---
             if (node.isVibrating && node.vibrationAmplitude > 0.1) {
               const segs = 64;
-              const tClick = node.vibrationClickT ?? 0.5; // где максимум (0..1)
-              const decayAlpha = settings.waveDecayAlpha ?? 25; // Управляет "короткостью" волны (теперь из конфига)
-              const time = (p.millis() - node.vibrationStartTime) * 0.0005; // время в секундах
-              const decay = Math.exp(-2 * time); // экспоненциальное затухание
-              p.beginShape(); // Начинаем рисовать волнообразную линию
+              const tClick = node.vibrationClickT ?? 0.5; // РіРґРµ РјР°РєСЃРёРјСѓРј (0..1)
+              const decayAlpha = settings.waveDecayAlpha ?? 25; // РЈРїСЂР°РІР»СЏРµС‚ "РєРѕСЂРѕС‚РєРѕСЃС‚СЊСЋ" РІРѕР»РЅС‹ (С‚РµРїРµСЂСЊ РёР· РєРѕРЅС„РёРіР°)
+              const time = (p.millis() - node.vibrationStartTime) * 0.0005; // РІСЂРµРјСЏ РІ СЃРµРєСѓРЅРґР°С…
+              const decay = Math.exp(-2 * time); // СЌРєСЃРїРѕРЅРµРЅС†РёР°Р»СЊРЅРѕРµ Р·Р°С‚СѓС…Р°РЅРёРµ
+              p.beginShape(); // РќР°С‡РёРЅР°РµРј СЂРёСЃРѕРІР°С‚СЊ РІРѕР»РЅРѕРѕР±СЂР°Р·РЅСѓСЋ Р»РёРЅРёСЋ
               const dx = endPoint.x - node.position.x; 
               const dy = endPoint.y - node.position.y;
               const len = Math.hypot(dx, dy);
@@ -156,29 +156,29 @@ export default function BackgroundP5() {
                 const t = i / segs;
                 const x = p.lerp(node.position.x, endPoint.x, t);
                 const y = p.lerp(node.position.y, endPoint.y, t);
-                // Локальная амплитуда: максимум в tClick, затухание к концам
-                // Создаем несколько волн (waveCount полуволн) и ограничиваем их плавной гауссовой "шапкой"
+                // Р›РѕРєР°Р»СЊРЅР°СЏ Р°РјРїР»РёС‚СѓРґР°: РјР°РєСЃРёРјСѓРј РІ tClick, Р·Р°С‚СѓС…Р°РЅРёРµ Рє РєРѕРЅС†Р°Рј
+                // РЎРѕР·РґР°РµРј РЅРµСЃРєРѕР»СЊРєРѕ РІРѕР»РЅ (waveCount РїРѕР»СѓРІРѕР»РЅ) Рё РѕРіСЂР°РЅРёС‡РёРІР°РµРј РёС… РїР»Р°РІРЅРѕР№ РіР°СѓСЃСЃРѕРІРѕР№ "С€Р°РїРєРѕР№"
                 const waveCount = settings.waveCount ?? 4;
                 const localAmp = node.vibrationAmplitude * Math.sin(waveCount * Math.PI * t) * Math.exp(-decayAlpha * Math.pow(t - tClick, 2)) * Math.sin(2 * Math.PI * settings.vibrationFrequency * time) * decay;
-                // Отключаем заливку для волны
+                // РћС‚РєР»СЋС‡Р°РµРј Р·Р°Р»РёРІРєСѓ РґР»СЏ РІРѕР»РЅС‹
                 if (i === 0) p.noFill();
                 p.vertex(x + nx * localAmp, y + ny * localAmp);
               }
               p.endShape();
-              // Затухание амплитуды
+              // Р—Р°С‚СѓС…Р°РЅРёРµ Р°РјРїР»РёС‚СѓРґС‹
               node.vibrationAmplitude *= settings.vibrationDecay;
               if (node.vibrationAmplitude < 0.1) node.isVibrating = false;
             } else {
-              // Просто линия без волны
+              // РџСЂРѕСЃС‚Рѕ Р»РёРЅРёСЏ Р±РµР· РІРѕР»РЅС‹
               p.line(node.position.x, node.position.y, endPoint.x, endPoint.y);
             }
           }
         }
       }
 
-      // --- Вспомогательная функция: расстояние от точки до отрезка ---
+      // --- Р’СЃРїРѕРјРѕРіР°С‚РµР»СЊРЅР°СЏ С„СѓРЅРєС†РёСЏ: СЂР°СЃСЃС‚РѕСЏРЅРёРµ РѕС‚ С‚РѕС‡РєРё РґРѕ РѕС‚СЂРµР·РєР° ---
       function pointToSegmentDist(px: number, py: number, x1: number, y1: number, x2: number, y2: number) {
-        // Алгоритм: проекция точки на отрезок
+        // РђР»РіРѕСЂРёС‚Рј: РїСЂРѕРµРєС†РёСЏ С‚РѕС‡РєРё РЅР° РѕС‚СЂРµР·РѕРє
         const dx = x2 - x1;
         const dy = y2 - y1;
         if (dx === 0 && dy === 0) return Math.hypot(px - x1, py - y1);
@@ -194,11 +194,11 @@ export default function BackgroundP5() {
         acceleration: any;
         isMajor: boolean;
         tetherPoint: any;
-        // --- Для вибрации луча ---
-        isVibrating: boolean = false; // Активна ли вибрация
-        vibrationAmplitude: number = 0; // Текущая амплитуда
-        vibrationStartTime: number = 0; // Время запуска вибрации
-        vibrationClickT?: number; // Положение клика вдоль луча (0..1)
+        // --- Р”Р»СЏ РІРёР±СЂР°С†РёРё Р»СѓС‡Р° ---
+        isVibrating: boolean = false; // РђРєС‚РёРІРЅР° Р»Рё РІРёР±СЂР°С†РёСЏ
+        vibrationAmplitude: number = 0; // РўРµРєСѓС‰Р°СЏ Р°РјРїР»РёС‚СѓРґР°
+        vibrationStartTime: number = 0; // Р’СЂРµРјСЏ Р·Р°РїСѓСЃРєР° РІРёР±СЂР°С†РёРё
+        vibrationClickT?: number; // РџРѕР»РѕР¶РµРЅРёРµ РєР»РёРєР° РІРґРѕР»СЊ Р»СѓС‡Р° (0..1)
       
         constructor(isMajor = false) {
           this.position = p5.Vector.random3D().mult(p.random(p.width / 4));
@@ -236,7 +236,7 @@ export default function BackgroundP5() {
           this.velocity.add(this.acceleration);
           this.velocity.limit(settings.maxSpeed);
           if (this.isMajor) {
-            this.velocity.mult(settings.majorNodeMobility); // Успокаиваем основные узлы
+            this.velocity.mult(settings.majorNodeMobility); // РЈСЃРїРѕРєР°РёРІР°РµРј РѕСЃРЅРѕРІРЅС‹Рµ СѓР·Р»С‹
           }
           this.position.add(this.velocity);
           this.acceleration.mult(0);
@@ -247,7 +247,7 @@ export default function BackgroundP5() {
           const radius = p.map(z, -settings.zDepth, settings.zDepth, settings.minNodeRadius, settings.maxNodeRadius);
           const alpha = p.map(z, -settings.zDepth, settings.zDepth, 100, 255);
           p.noStroke();
-          // Используем majorNodeColor для основных узлов
+          // РСЃРїРѕР»СЊР·СѓРµРј majorNodeColor РґР»СЏ РѕСЃРЅРѕРІРЅС‹С… СѓР·Р»РѕРІ
           if (this.isMajor) {
             p.fill(...settings.majorNodeColor, alpha);
           } else {
@@ -274,8 +274,8 @@ export default function BackgroundP5() {
   }, []);
 
   return (
-    <div style={{ position: "fixed", top: 0, left: 0, width: "100vw", height: "100vh", zIndex: -1, opacity: 0.7, pointerEvents: "auto" }}>
-      {/* Контейнер для p5-скетча */}
+    <div className="dynamic-bg" style={{ position: "fixed", top: 0, left: 0, width: "100vw", height: "100vh", zIndex: 0, opacity: 0.7, pointerEvents: "auto" }}>
+      {/* РљРѕРЅС‚РµР№РЅРµСЂ РґР»СЏ p5-СЃРєРµС‚С‡Р° */}
       <div ref={sketchRef} style={{ width: "100vw", height: "100vh" }} />
     </div>
   );

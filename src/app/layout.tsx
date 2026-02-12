@@ -97,9 +97,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru" className={`${inter.variable} ${roboto.variable}`}>
-      <body className="text-text antialiased bg-background text-foreground">
+      <body className="font-sans text-text antialiased text-foreground">
         <ClientRoot>
-          <div className="min-h-screen flex flex-col bg-background">
+          <div className="min-h-screen flex flex-col">
             <script
               type="application/ld+json"
               dangerouslySetInnerHTML={{
