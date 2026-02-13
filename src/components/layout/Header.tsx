@@ -39,10 +39,10 @@ export default function Header() {
         }}
       >
       {/* РљРѕРЅС‚РµР№РЅРµСЂ СЃ РѕС‚СЃС‚СѓРїР°РјРё Рё РІС‹СЃРѕС‚РѕР№ РїРѕ РґРёР·Р°Р№РЅ-СЃРёСЃС‚РµРјРµ */}
-      <div className="container mx-auto px-3 h-16 flex min-w-0 justify-between items-center">
+      <div className="container mx-auto px-3 h-20 md:h-24 flex min-w-0 justify-between items-center">
         <Link
           href="/"
-          className="flex min-w-0 max-w-[70vw] items-center"
+          className="flex min-w-0 max-w-[85vw] md:max-w-[360px] items-center"
           aria-label="ПК - на главную"
         >
           <Image
@@ -51,7 +51,7 @@ export default function Header() {
             width={1536}
             height={1024}
             priority
-            className="h-12 w-auto max-w-full md:h-14"
+            className="h-14 w-auto max-w-full sm:h-16 md:h-20 drop-shadow-[0_1px_2px_rgba(0,0,0,0.45)]"
           />
         </Link>
         {/* РќР°РІРёРіР°С†РёСЏ РґР»СЏ РґРµСЃРєС‚РѕРїР° СЃ РѕС‚СЃС‚СѓРїР°РјРё РїРѕ РґРёР·Р°Р№РЅ-СЃРёСЃС‚РµРјРµ */}
