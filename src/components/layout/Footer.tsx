@@ -18,21 +18,21 @@ const Footer: React.FC<FooterProps> = React.memo(function Footer({ onOpenPrivacy
   return (
     <footer className="frosted-glass">
       <div className="container mx-auto px-3 py-5">
-        <div className="flex flex-col md:flex-row justify-between items-center">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-2">
           <div className="mb-4 md:mb-0 text-center md:text-left">
             <div className="font-heading text-h4 font-bold">ООО «ПК»</div>
             <p className="text-sm text-text-muted opacity-50 mt-1">© {new Date().getFullYear()} ООО «ПК». Все права защищены.</p>
           </div>
-          <nav className="flex gap-4 mb-4 md:mb-0">
+          <nav className="flex w-full flex-col items-center gap-2 text-center md:mb-0 md:w-auto md:flex-row md:gap-4">
             {footerNav.map(link => (
-                <Link key={link.href} href={link.href} className="text-body hover:text-accent transition-colors">
+                <Link key={link.href} href={link.href} className="text-body leading-6 hover:text-accent transition-colors">
                     {link.label}
                 </Link>
             ))}
             {/* Ссылка на политику конфиденциальности */}
             <button
               type="button"
-              className="text-body hover:text-accent transition-colors underline"
+              className="text-body leading-6 hover:text-accent transition-colors"
               onClick={onOpenPrivacyPolicy}
             >
               Политика конфиденциальности

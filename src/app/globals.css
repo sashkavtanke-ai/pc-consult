@@ -96,6 +96,18 @@
   }
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 body {
   color: var(--color-text);
   background: var(--color-bg, #f5f7fa);

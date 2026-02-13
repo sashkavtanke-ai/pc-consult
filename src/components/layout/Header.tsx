@@ -27,18 +27,22 @@ export default function Header() {
       <header
         className="frosted-glass font-sans"
         style={{
-          position: 'fixed', // С„РёРєСЃРёСЂРѕРІР°РЅРЅРѕРµ РїРѕР·РёС†РёРѕРЅРёСЂРѕРІР°РЅРёРµ
-          top: 0,            // РїСЂРёР¶Р°С‚СЊ Рє РІРµСЂС…Сѓ
-          left: 0,           // РїСЂРёР¶Р°С‚СЊ Рє Р»РµРІРѕРјСѓ РєСЂР°СЋ
-          width: '100%',     // РЅР° РІСЃСЋ С€РёСЂРёРЅСѓ
-          zIndex: 100        // РїРѕРІРµСЂС… РѕСЃС‚Р°Р»СЊРЅРѕРіРѕ РєРѕРЅС‚РµРЅС‚Р°
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          margin: 0,
+          padding: 0,
+          borderRadius: 0,
+          boxSizing: 'border-box',
+          zIndex: 100,
         }}
       >
       {/* РљРѕРЅС‚РµР№РЅРµСЂ СЃ РѕС‚СЃС‚СѓРїР°РјРё Рё РІС‹СЃРѕС‚РѕР№ РїРѕ РґРёР·Р°Р№РЅ-СЃРёСЃС‚РµРјРµ */}
-      <div className="container mx-auto px-3 h-16 flex justify-between items-center">
+      <div className="container mx-auto px-3 h-16 flex min-w-0 justify-between items-center">
         <Link
           href="/"
-          className="flex items-center"
+          className="flex min-w-0 max-w-[70vw] items-center"
           aria-label="ПК - на главную"
         >
           <Image
@@ -47,7 +51,7 @@ export default function Header() {
             width={1536}
             height={1024}
             priority
-            className="h-12 w-auto md:h-14"
+            className="h-12 w-auto max-w-full md:h-14"
           />
         </Link>
         {/* РќР°РІРёРіР°С†РёСЏ РґР»СЏ РґРµСЃРєС‚РѕРїР° СЃ РѕС‚СЃС‚СѓРїР°РјРё РїРѕ РґРёР·Р°Р№РЅ-СЃРёСЃС‚РµРјРµ */}
