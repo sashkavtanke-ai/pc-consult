@@ -56,10 +56,10 @@ export default function ServicesPageClient() {
       <PageHeader
         title="Консалтинг для бизнеса: стратегический, финансовый и управленческий"
         subtitle="Выберите формат работы: экспресс-консультации или комплексное сопровождение бизнеса."
-        className="mt-28 md:mt-48 frosted-glass py-16 md:py-20 text-center overflow-hidden"
+        className="mt-20 md:mt-24 frosted-glass py-10 md:py-12 text-center overflow-hidden"
       />
 
-      <div className="container mx-auto px-6 py-12 md:py-20">
+      <div className="container mx-auto px-6 py-8 md:py-12">
         <section>
           <h2 className="mb-6 text-center text-h3 font-bold text-primary">Форматы работы</h2>
           <motion.div
