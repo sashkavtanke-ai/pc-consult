@@ -42,19 +42,27 @@ export default function ContactForm({ initialMessage = '' }: ContactFormProps) {
         body: JSON.stringify({ name, email, message: messageValue }),
       });
 
-      const data = await res.json();
+      let data: { details?: FormErrors; error?: string } | null = null;
+      const contentType = res.headers.get('content-type') || '';
+
+      if (contentType.includes('application/json')) {
+        data = (await res.json()) as { details?: FormErrors; error?: string };
+      } else {
+        const text = await res.text();
+        data = text ? { error: `Сервер вернул неожиданный ответ (HTTP ${res.status}).` } : null;
+      }
 
       if (res.ok) {
         setSuccess(true);
         form.reset();
         setMessageValue(initialMessage);
-      } else if (data.details) {
+      } else if (data?.details) {
         setErrors(data.details);
       } else {
-        setGeneralError(data.error || 'Ошибка при отправке. Попробуйте позже.');
+        setGeneralError(data?.error || `Ошибка при отправке (HTTP ${res.status}). Попробуйте позже.`);
       }
     } catch {
-      setGeneralError('Ошибка сети. Проверьте подключение к интернету.');
+      setGeneralError('Не удалось отправить запрос. Проверьте подключение и попробуйте снова.');
     } finally {
       setLoading(false);
     }
