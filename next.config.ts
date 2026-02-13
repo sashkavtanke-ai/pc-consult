@@ -8,6 +8,15 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  async redirects() {
+    return [
+      {
+        source: '/sitemap.ts',
+        destination: '/sitemap.xml',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default withBundleAnalyzer({
