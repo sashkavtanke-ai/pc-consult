@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 
 type FormErrors = {
   name?: string[];
+  phone?: string[];
   email?: string[];
   message?: string[];
 };
@@ -33,13 +34,14 @@ export default function ContactForm({ initialMessage = '' }: ContactFormProps) {
     const form = e.currentTarget;
     const formData = new FormData(form);
     const name = formData.get('name');
+    const phone = formData.get('phone');
     const email = formData.get('email');
 
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, message: messageValue }),
+        body: JSON.stringify({ name, phone, email, message: messageValue }),
       });
 
       let data: { details?: FormErrors; error?: string } | null = null;
@@ -48,8 +50,15 @@ export default function ContactForm({ initialMessage = '' }: ContactFormProps) {
       if (contentType.includes('application/json')) {
         data = (await res.json()) as { details?: FormErrors; error?: string };
       } else {
-        const text = await res.text();
-        data = text ? { error: `Сервер вернул неожиданный ответ (HTTP ${res.status}).` } : null;
+        await res.text();
+        if (res.status === 403) {
+          data = {
+            error:
+              'Запрос отклонен системой безопасности сервера (HTTP 403). Уберите из текста спецконструкции и отправьте снова.',
+          };
+        } else {
+          data = { error: `Сервер вернул неожиданный ответ (HTTP ${res.status}).` };
+        }
       }
 
       if (res.ok) {
@@ -85,6 +94,21 @@ export default function ContactForm({ initialMessage = '' }: ContactFormProps) {
           required
         />
         {errors.name && <p className="text-red-600 text-sm mt-1">{errors.name[0]}</p>}
+      </div>
+
+      <div>
+        <label htmlFor="phone" className="block text-sm font-medium label-base mb-1">
+          Телефон
+        </label>
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          className={`input-base block w-full h-10 px-3 ${errors.phone ? 'border-red-500' : ''}`}
+          placeholder="+7 (___) ___-__-__"
+          required
+        />
+        {errors.phone && <p className="text-red-600 text-sm mt-1">{errors.phone[0]}</p>}
       </div>
 
       <div>

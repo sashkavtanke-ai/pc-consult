@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+﻿import { NextRequest, NextResponse } from "next/server";
 import { google } from "googleapis";
 import { z } from "zod";
 
@@ -6,6 +6,10 @@ export const runtime = "nodejs";
 
 const contactSchema = z.object({
   name: z.string().min(2, { message: "Имя должно содержать не менее 2 символов." }),
+  phone: z
+    .string()
+    .min(7, { message: "Некорректный номер телефона." })
+    .regex(/^[0-9+()\-\s]+$/, { message: "Некорректный номер телефона." }),
   email: z.string().email({ message: "Некорректный email адрес." }),
   message: z.string().min(10, { message: "Сообщение должно содержать не менее 10 символов." }),
 });
@@ -91,7 +95,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const { name, email, message } = validation.data;
+  const { name, phone, email, message } = validation.data;
 
   try {
     const credentials = parseGoogleCredentials(GOOGLE_CREDENTIALS_BASE64);
@@ -115,7 +119,7 @@ export async function POST(req: NextRequest) {
       valueInputOption: "USER_ENTERED",
       insertDataOption: "INSERT_ROWS",
       requestBody: {
-        values: [[`${day}.${month}.${year}`, name, email, message]],
+        values: [[`${day}.${month}.${year}`, name, phone, email, message]],
       },
     });
 

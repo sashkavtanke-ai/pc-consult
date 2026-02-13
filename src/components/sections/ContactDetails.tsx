@@ -13,7 +13,7 @@ export default function ContactDetails() {
         </div>
         <div className="flex items-start gap-4">
           <Mail className="h-6 w-6 text-accent flex-shrink-0 mt-1" />
-          <span>george-pc@bk.ru</span>
+          <span>info@pc-consult.ru</span>
         </div>
         <div className="flex items-start gap-4">
           <MapPin className="h-6 w-6 text-accent flex-shrink-0 mt-1" />
