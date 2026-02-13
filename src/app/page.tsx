@@ -1,24 +1,22 @@
-import type { Metadata } from 'next';
-import dynamic from "next/dynamic"; // ленивый импорт
-const Hero = dynamic(() => import('@/components/sections/Hero')); // ленивый импорт HeroSection
-// Импорт превью услуг
+﻿import type { Metadata } from 'next';
+import dynamic from 'next/dynamic';
 import ServicesPreview from '@/components/sections/ServicesPreview';
 
+const Hero = dynamic(() => import('@/components/sections/Hero'));
+
 export const metadata: Metadata = {
-  title: 'Стратегический и финансовый консалтинг',
+  title: 'Консалтинг для бизнеса в Санкт-Петербурге и по России',
   description:
-    'Помогаем малому и среднему бизнесу расти: стратегия, финансы, операционная эффективность и юридическое сопровождение.',
+    'Консалтинг для малого и среднего бизнеса: стратегия, финансовое моделирование, управленческий учет, оптимизация издержек и работа с долговой нагрузкой.',
   alternates: {
     canonical: '/',
   },
 };
 
-// Главная страница: теперь используется компонент Hero вместо заглушки
 export default function Home() {
   return (
     <main>
       <Hero />
-      {/* Секция превью услуг */}
       <ServicesPreview />
     </main>
   );

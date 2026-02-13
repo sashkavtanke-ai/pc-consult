@@ -2,9 +2,9 @@
 import ExpressConsultationsPageClient from './ExpressConsultationsPageClient';
 
 export const metadata: Metadata = {
-  title: 'Экспресс-консультации',
+  title: 'Экспресс-консультации для бизнеса: финансы и долги',
   description:
-    'Экспресс-консультации по росту бизнеса и работе с долговой нагрузкой: таблица услуг, формат, быстрый результат и следующие шаги.',
+    'Экспресс-консультации по росту бизнеса, финансовому чек-апу, оптимизации издержек, отмене судебного приказа и реструктуризации долгов.',
   alternates: {
     canonical: '/services/express',
   },

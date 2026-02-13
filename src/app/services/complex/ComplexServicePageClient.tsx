@@ -15,12 +15,13 @@ export default function ComplexServicePageClient() {
   return (
     <main className="min-h-screen">
       <PageHeader
-        title="Комплексное обслуживание"
-        subtitle="Классические направления долгосрочной работы с бизнесом."
+        title="Комплексное обслуживание бизнеса под ключ"
+        subtitle="Стратегическое планирование, финансовый контур и операционная эффективность для стабильного роста компании."
         className="mt-28 md:mt-48 frosted-glass py-16 md:py-20 text-center overflow-hidden"
       />
 
       <div className="container mx-auto px-6 py-8 md:py-12">
+        <h2 className="mb-6 text-center text-h3 font-bold text-primary">Направления комплексного обслуживания</h2>
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           {legacyComplexServices.map((service) => (
             <article
@@ -32,7 +33,7 @@ export default function ComplexServicePageClient() {
                 alt={service.title}
                 className="mb-5 h-48 w-full rounded-lg object-cover"
               />
-              <h2 className="mb-3 text-h4 font-bold text-primary">{service.title}</h2>
+              <h3 className="mb-3 text-h4 font-bold text-primary">{service.title}</h3>
               <p className="mb-5 text-body text-text-muted">{service.description}</p>
               <button
                 type="button"
