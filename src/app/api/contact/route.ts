@@ -17,6 +17,10 @@ const contactSchema = z.object({
 const SHEET_ID = process.env.GOOGLE_SHEET_ID;
 const GOOGLE_CREDENTIALS_BASE64 = process.env.GOOGLE_CREDENTIALS_BASE64;
 
+const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
+const RATE_LIMIT_MAX = 5;
+const rateLimitBuckets = new Map<string, number[]>();
+
 type GoogleCredentials = {
   client_email: string;
   private_key: string;
@@ -82,6 +86,50 @@ export async function POST(req: NextRequest) {
       { status: 400 }
     );
   }
+
+  const rawBody = body as Record<string, unknown>;
+  const website = typeof rawBody.website === "string" ? rawBody.website.trim() : "";
+  const formStartedAtRaw = rawBody.formStartedAt;
+  const formStartedAt =
+    typeof formStartedAtRaw === "number"
+      ? formStartedAtRaw
+      : typeof formStartedAtRaw === "string"
+        ? Number.parseInt(formStartedAtRaw, 10)
+        : NaN;
+
+  if (website) {
+    return NextResponse.json({ success: true, message: "Сообщение успешно отправлено!" });
+  }
+
+  if (!Number.isFinite(formStartedAt) || Date.now() - formStartedAt < 3000) {
+    return NextResponse.json(
+      { success: false, error: "Пожалуйста, повторите отправку формы." },
+      { status: 400 }
+    );
+  }
+
+  const forwardedFor = req.headers.get("x-forwarded-for");
+  const realIp = req.headers.get("x-real-ip");
+  const ip = forwardedFor?.split(",")[0]?.trim() || realIp || "unknown";
+  const userAgent = req.headers.get("user-agent") || "unknown";
+  const rateKey = `${ip}|${userAgent}`;
+  const now = Date.now();
+  const bucket = rateLimitBuckets.get(rateKey) || [];
+  const fresh = bucket.filter((timestamp) => now - timestamp < RATE_LIMIT_WINDOW_MS);
+
+  if (fresh.length >= RATE_LIMIT_MAX) {
+    rateLimitBuckets.set(rateKey, fresh);
+    return NextResponse.json(
+      {
+        success: false,
+        error: "Слишком много запросов. Пожалуйста, попробуйте позже.",
+      },
+      { status: 429 }
+    );
+  }
+
+  fresh.push(now);
+  rateLimitBuckets.set(rateKey, fresh);
 
   const validation = contactSchema.safeParse(body);
   if (!validation.success) {

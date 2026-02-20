@@ -1,6 +1,6 @@
 ﻿'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 type FormErrors = {
   name?: string[];
@@ -19,6 +19,7 @@ export default function ContactForm({ initialMessage = '' }: ContactFormProps) {
   const [errors, setErrors] = useState<FormErrors>({});
   const [generalError, setGeneralError] = useState<string | null>(null);
   const [messageValue, setMessageValue] = useState(initialMessage);
+  const startedAtRef = useRef<number>(Date.now());
 
   useEffect(() => {
     setMessageValue(initialMessage);
@@ -36,12 +37,21 @@ export default function ContactForm({ initialMessage = '' }: ContactFormProps) {
     const name = formData.get('name');
     const phone = formData.get('phone');
     const email = formData.get('email');
+    const website = formData.get('website');
+    const formStartedAt = formData.get('form_started_at');
 
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, phone, email, message: messageValue }),
+        body: JSON.stringify({
+          name,
+          phone,
+          email,
+          message: messageValue,
+          website,
+          formStartedAt,
+        }),
       });
 
       let data: { details?: FormErrors; error?: string } | null = null;
@@ -82,6 +92,18 @@ export default function ContactForm({ initialMessage = '' }: ContactFormProps) {
       className="space-y-4 w-full h-full p-0 rounded-none shadow-none bg-transparent"
       onSubmit={handleSubmit}
     >
+      <input type="hidden" name="form_started_at" value={startedAtRef.current} />
+      <div className="hidden" aria-hidden="true">
+        <label htmlFor="website">Ваш сайт</label>
+        <input
+          id="website"
+          name="website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          defaultValue=""
+        />
+      </div>
       <div>
         <label htmlFor="name" className="block text-sm font-medium label-base mb-1">
           Имя
