@@ -10,6 +10,7 @@ export interface ArticleData {
   content: string;
   datePublished: string;
   author: ArticleAuthor;
+  ctaTopic?: string;
   /** SEO-описание статьи (опционально) */
   seoDescription?: string;
   /** SEO-ключевые слова через запятую (опционально) */

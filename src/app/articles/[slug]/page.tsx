@@ -1,7 +1,8 @@
-﻿import type { Metadata } from 'next';
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import ContactForm from '@/components/forms/ContactForm';
 import { getAllArticles } from '../data/getAllArticles';
 import type { ArticleData } from '../types';
 
@@ -107,17 +108,17 @@ export default async function ArticlePage({ params }: PageProps) {
 
   return (
     <main className="min-h-screen bg-background">
-      <div className="container mx-auto px-6 py-10 max-w-4xl">
-        <Link href="/articles" className="inline-block mb-6 text-accent hover:underline">
+      <div className="container mx-auto max-w-4xl px-6 py-10">
+        <Link href="/articles" className="mb-6 inline-block text-accent hover:underline">
           ← К списку статей
         </Link>
 
-        <article className="frosted-glass p-8 rounded-card shadow-md">
-          <h1 className="font-heading text-h2 font-bold text-primary mb-4">{article.title}</h1>
-          <p className="text-sm text-text-muted mb-6">{article.datePublished}</p>
+        <article className="frosted-glass rounded-card p-8 shadow-md">
+          <h1 className="mb-4 font-heading text-h2 font-bold text-primary">{article.title}</h1>
+          <p className="mb-6 text-sm text-text-muted">{article.datePublished}</p>
 
           {hasImage && (
-            <div className="relative h-80 w-full mb-8 rounded-lg overflow-hidden">
+            <div className="relative mb-8 h-80 w-full overflow-hidden rounded-lg">
               <Image
                 src={article.imageUrl!}
                 alt={`Обложка статьи ${article.title}`}
@@ -129,10 +130,40 @@ export default async function ArticlePage({ params }: PageProps) {
           )}
 
           <div
-            className="prose lg:prose-xl max-w-none text-body text-text-muted"
+            className="prose max-w-none text-body text-text-muted lg:prose-xl"
             dangerouslySetInnerHTML={{ __html: article.content }}
           />
+
+          {article.ctaTopic && (
+            <div className="mt-10 rounded-card border border-[rgba(33,115,70,0.25)] bg-[rgba(33,115,70,0.08)] p-6">
+              <h2 className="text-h4 font-bold text-primary">Нужна финансовая модель для вашего бизнеса?</h2>
+              <p className="mt-3 text-body text-text-muted">
+                Оставьте заявку, и мы проведём первичную диагностику задачи, оценим риски и предложим формат
+                работы.
+              </p>
+              <Link
+                href="#article-contact-form"
+                className="button-base mt-5 inline-flex items-center justify-center px-6 py-3 text-sm"
+              >
+                Оставить заявку
+              </Link>
+            </div>
+          )}
         </article>
+
+        {article.ctaTopic && (
+          <section id="article-contact-form" className="frosted-glass mt-8 rounded-card p-8 shadow-md">
+            <h2 className="text-h3 font-bold text-primary">Получить консультацию</h2>
+            <p className="mt-3 text-body text-text-muted">
+              Заполните форму, и мы свяжемся с вами, чтобы обсудить задачу и подготовить первичные рекомендации.
+            </p>
+            <div className="mt-6">
+              <ContactForm
+                initialMessage={`Тема консультации: ${article.ctaTopic}\n\nКратко опишите задачу бизнеса:`}
+              />
+            </div>
+          </section>
+        )}
       </div>
 
       <script

@@ -11,6 +11,7 @@ export async function getAllArticles(): Promise<ArticleData[]> {
     import('./kak-vybrat-konsaltingovuyu-kompaniiu-7-kriteriev'),
     import('./kak-rasschitat-tochku-bezubytochnosti-vashego-biznesa'),
     import('./finansovoe-planirovanie-dlia-startapov-s-chego-nachat'),
+    import('./finansovaya-model-biznesa-v-2026-godu-v-rossii'),
     import('./upravlenie-denezhnymi-potokami-kak-izbezhat-kassovogo-razryva'),
     import('./nalogovaya-optimizatsiya-dlya-malogo-biznesa-zakonnye-sposoby'),
     import('./biznes-model-kak-opisat-i-protestirovat'),
