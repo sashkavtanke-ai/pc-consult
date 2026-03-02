@@ -83,7 +83,7 @@ export default function ExpressConsultationsPageClient() {
                     <button
                       type="button"
                       onClick={() => setSelectedTopic(item.title)}
-                      className="button-base mt-auto rounded-[4px] px-6 py-3 text-sm text-black"
+                      className="button-soft-accent mt-auto w-fit px-6 py-3 text-sm"
                     >
                       Получить консультацию
                     </button>
