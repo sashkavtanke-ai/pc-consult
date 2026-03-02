@@ -1,8 +1,5 @@
-﻿import type { Metadata } from 'next';
-import dynamic from 'next/dynamic';
-import ServicesPreview from '@/components/sections/ServicesPreview';
-
-const Hero = dynamic(() => import('@/components/sections/Hero'));
+import type { Metadata } from 'next';
+import HomeLanding from '@/components/home/HomeLanding';
 
 export const metadata: Metadata = {
   title: 'Консалтинг для бизнеса в Санкт-Петербурге и по России',
@@ -14,10 +11,5 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  return (
-    <main>
-      <Hero />
-      <ServicesPreview />
-    </main>
-  );
+  return <HomeLanding />;
 }

@@ -272,3 +272,47 @@ body {
   cursor: not-allowed;
 }
 
+.site-shell {
+  position: relative;
+  isolation: isolate;
+}
+
+.site-background {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 12% 18%, rgba(33, 115, 70, 0.12) 0, rgba(33, 115, 70, 0) 28%),
+    radial-gradient(circle at 88% 22%, rgba(10, 37, 64, 0.08) 0, rgba(10, 37, 64, 0) 24%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.55), rgba(245, 247, 250, 0.9));
+}
+
+.site-background::before,
+.site-background::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.site-background::before {
+  background:
+    linear-gradient(118deg, transparent 0 54%, rgba(33, 115, 70, 0.12) 54.2%, transparent 54.5%),
+    linear-gradient(172deg, transparent 0 69%, rgba(10, 37, 64, 0.08) 69.15%, transparent 69.4%),
+    linear-gradient(96deg, transparent 0 80%, rgba(33, 115, 70, 0.09) 80.2%, transparent 80.4%);
+}
+
+.site-background::after {
+  background-image:
+    radial-gradient(circle, rgba(10, 37, 64, 0.18) 0 2px, transparent 2.2px),
+    radial-gradient(circle, rgba(33, 115, 70, 0.22) 0 1.5px, transparent 1.7px);
+  background-size: 180px 180px, 230px 230px;
+  background-position: 40px 60px, 130px 120px;
+  opacity: 0.3;
+}
+
+.site-content {
+  position: relative;
+  z-index: 1;
+}
+
