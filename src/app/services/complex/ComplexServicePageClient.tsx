@@ -47,7 +47,7 @@ export default function ComplexServicePageClient() {
                 <button
                   type="button"
                   onClick={() => setSelectedCard(service)}
-                  className="button-base rounded-[4px] px-4 py-2 text-sm text-black"
+                  className="button-soft-accent px-4 py-2 text-sm"
                 >
                   Подробнее
                 </button>

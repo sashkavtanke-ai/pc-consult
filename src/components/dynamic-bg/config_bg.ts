@@ -38,7 +38,7 @@ function cssVarToRgbArray(varName: string, fallback: [number, number, number]): 
 function getBgConfigColors() {
   return {
     nodeColor: cssVarToRgbArray("--color-primary", [40, 60, 80]), // Цвет обычных узлов (primary)
-    majorNodeColor: cssVarToRgbArray("--color-accent", [255, 110, 58]), // Цвет основных узлов (accent)
+    majorNodeColor: cssVarToRgbArray("--color-accent", [33, 115, 70]), // Цвет основных узлов (accent)
     bgColor: cssVarToRgbArray("--color-bg", [245,247,250]), // Цвет фона (но фон прозрачный, используется фон страницы)
     connectionLineColor: cssVarToRgbArray("--color-primary", [100, 120, 140]), // Цвет линий соединения (primary)
     rayLineColor: cssVarToRgbArray("--color-primary", [80, 100, 120]), // Цвет лучей (primary)

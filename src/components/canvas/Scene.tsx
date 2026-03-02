@@ -14,7 +14,7 @@ const particles = Array.from({ length: count }, () => ({
   zFactor: THREE.MathUtils.randFloat(-5, 5),
 }));
 
-function Bubbles({ accentColor = '#FF6E3A' }: { accentColor?: string }) {
+function Bubbles({ accentColor = '#217346' }: { accentColor?: string }) {
   const ref = useRef<THREE.InstancedMesh>(null!);
   const { viewport, mouse } = useThree();
 
@@ -51,13 +51,13 @@ function Bubbles({ accentColor = '#FF6E3A' }: { accentColor?: string }) {
 
 export default function Scene() {
   const [primaryColor, setPrimaryColor] = useState('#0A2540');
-  const [accentColor, setAccentColor] = useState('#FF6E3A');
+  const [accentColor, setAccentColor] = useState('#217346');
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const root = document.documentElement;
       setPrimaryColor(getComputedStyle(root).getPropertyValue('--color-primary') || '#0A2540');
-      setAccentColor(getComputedStyle(root).getPropertyValue('--color-accent') || '#FF6E3A');
+      setAccentColor(getComputedStyle(root).getPropertyValue('--color-accent') || '#217346');
     }
   }, []);
 

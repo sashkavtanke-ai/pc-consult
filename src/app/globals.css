@@ -30,7 +30,7 @@
   --color-primary: #0A2540;      /* Основной фон, заголовки */
   /* Frosted glass background для светлой темы */
   --frosted-bg: rgba(245,247,250,0.6); /* Прозрачный белый. Чем меньше, тем прозрачнее*/
-  --color-accent: #FF6E3A;       /* CTA-кнопки, интерактивные элементы */
+  --color-accent: #217346;       /* CTA-кнопки, интерактивные элементы */
   --color-bg: #F5F7FA;           /* Основной фон страницы */
   --color-surface: #F5F7FA;      /* Фон карточек и модалок */
   --color-text: #333333;         /* Основной текст */
@@ -139,7 +139,7 @@ body {
 .text-sm { font-size: var(--font-sm); }
 
 .text-accent {
-  color: #DB4C2A;
+  color: var(--color-accent);
   font-weight: bold;
 }
 
@@ -248,9 +248,9 @@ body {
 }
 
 .button-soft-accent {
-  background: rgba(255, 110, 58, 0.28);
+  background: rgba(33, 115, 70, 0.28);
   color: #111111;
-  border: 1px solid rgba(255, 110, 58, 0.45);
+  border: 1px solid rgba(33, 115, 70, 0.45);
   border-radius: var(--radius-button);
   font-weight: 600;
   backdrop-filter: blur(6px);
@@ -259,8 +259,8 @@ body {
 }
 
 .button-soft-accent:hover {
-  background: rgba(255, 110, 58, 0.42);
-  border-color: rgba(255, 110, 58, 0.55);
+  background: rgba(33, 115, 70, 0.42);
+  border-color: rgba(33, 115, 70, 0.55);
 }
 
 .button-soft-accent:active {
@@ -271,3 +271,4 @@ body {
   opacity: 0.5;
   cursor: not-allowed;
 }
+
