@@ -138,12 +138,11 @@ export default function HomeLanding() {
             </div>
 
             <h1 className="max-w-4xl font-heading text-h1 font-bold leading-[1.05] text-primary">
-              Консалтинг для бизнеса: стратегия, финансы и управленческие решения
+              Прокладываем путь деньгам — к вашему счёту.
             </h1>
 
             <p className="mt-5 max-w-3xl text-h4 leading-relaxed text-text-muted">
-              Помогаем собственникам и руководителям навести порядок в финансах, увидеть точки роста,
-              снизить риски и перейти от разрозненных действий к понятной системе управления.
+              Финансовые и юридические решения для бизнеса и частных клиентов.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
