@@ -3,14 +3,12 @@ import {
   ArrowRight,
   BriefcaseBusiness,
   ChartColumnIncreasing,
-  CircleCheckBig,
   Landmark,
   Scale,
   ShieldCheck,
   WalletCards,
 } from 'lucide-react';
 import ContactForm from '@/components/forms/ContactForm';
-import CasesSlider from '@/components/home/CasesSlider';
 import { getAllProjects } from '@/app/projects/data/getAllProjects';
 import {
   expressConsultations,
@@ -40,44 +38,53 @@ const featuredSolutions = [
     title: expressConsultations[0].title,
     description: expressConsultations[0].whatClientGets,
     href: '/services/express',
-    icon: <ChartColumnIncreasing size={22} className="text-accent" />,
+    icon: <ChartColumnIncreasing size={22} className="text-primary" />,
   },
   {
     title: expressConsultations[2].title,
     description: expressConsultations[2].whatClientGets,
     href: '/services/express',
-    icon: <WalletCards size={22} className="text-accent" />,
+    icon: <WalletCards size={22} className="text-primary" />,
   },
   {
     title: expressConsultations[8].title,
     description: expressConsultations[8].whatClientGets,
     href: '/services/express',
-    icon: <Scale size={22} className="text-accent" />,
+    icon: <Scale size={22} className="text-primary" />,
   },
   {
     title: serviceOffers.find((item) => item.id === 'business-accounting')!.title,
     description: serviceOffers.find((item) => item.id === 'business-accounting')!.description,
     href: '/services/complex',
-    icon: <BriefcaseBusiness size={22} className="text-accent" />,
+    icon: <BriefcaseBusiness size={22} className="text-primary" />,
   },
   {
     title: serviceOffers.find((item) => item.id === 'business-valuation')!.title,
     description: serviceOffers.find((item) => item.id === 'business-valuation')!.description,
     href: '/services/complex',
-    icon: <Landmark size={22} className="text-accent" />,
+    icon: <Landmark size={22} className="text-primary" />,
   },
   {
     title: serviceOffers.find((item) => item.id === 'individual-tax-support')!.title,
     description: serviceOffers.find((item) => item.id === 'individual-tax-support')!.description,
     href: '/services/complex',
-    icon: <ShieldCheck size={22} className="text-accent" />,
+    icon: <ShieldCheck size={22} className="text-primary" />,
   },
 ];
 
 const benefits = [
-  'Помогаем навести порядок в финансах, снизить потери и увидеть точки роста бизнеса.',
-  'Разбираем ситуацию на языке цифр: прибыль, расходы, денежный поток, риски и управленческие решения.',
-  'Даём понятный план действий: от разовой консультации до комплексного сопровождения бизнеса.',
+  {
+    icon: <ChartColumnIncreasing size={18} className="text-primary" />,
+    text: 'Помогаем навести порядок в финансах, снизить потери и увидеть точки роста бизнеса.',
+  },
+  {
+    icon: <WalletCards size={18} className="text-primary" />,
+    text: 'Разбираем ситуацию на языке цифр: прибыль, расходы, денежный поток, риски и управленческие решения.',
+  },
+  {
+    icon: <Scale size={18} className="text-primary" />,
+    text: 'Даём понятный план действий: от разовой консультации до комплексного сопровождения бизнеса.',
+  },
 ];
 
 const steps = [
@@ -89,10 +96,10 @@ const steps = [
   {
     title: 'Проводим разбор',
     description:
-      'Изучаем цифры, документы и контекст бизнеса. Не даем абстрактных советов без опоры на реальную ситуацию.',
+      'Изучаем цифры, документы и контекст бизнеса. Не даём абстрактных советов без опоры на реальную ситуацию.',
   },
   {
-    title: 'Выдаем решение',
+    title: 'Выдаём решение',
     description:
       'Формируем конкретные рекомендации, план внедрения и следующий шаг: экспресс-формат или комплексное сопровождение.',
   },
@@ -117,7 +124,7 @@ const faqItems = [
   {
     question: 'Вы работаете только в Санкт-Петербурге?',
     answer:
-      'Нет. Работаем в Санкт-Петербурге и по всей России: онлайн, с документами и удаленным сопровождением, а при необходимости — в очном формате.',
+      'Нет. Работаем в Санкт-Петербурге и по всей России: онлайн, с документами и удалённым сопровождением, а при необходимости — в очном формате.',
   },
   {
     question: 'Что происходит после заявки?',
@@ -126,37 +133,55 @@ const faqItems = [
   },
 ];
 
+function getBusinessTypeLabel(slug: string, fallbackTitle: string): string {
+  switch (slug) {
+    case '1-portfolio-distribution':
+      return 'Дистрибьютор аудио- и видеопродукции';
+    case '2-portfolio-vet':
+      return 'Сеть ветеринарных клиник';
+    case '3-portfolio-electronics':
+      return 'Поставщик электроники';
+    case '4-portfolio-construction':
+      return 'Строительная компания';
+    case '5-portfolio-beauty':
+      return 'Салон красоты';
+    case '6-portfolio-pvz':
+      return 'Сеть ПВЗ';
+    case '7-portfolio-legal':
+      return 'Юридическая компания';
+    case '8-portfolio-energy':
+      return 'Энергетическая компания';
+    default:
+      return fallbackTitle;
+  }
+}
+
 export default async function HomeLanding() {
-  const caseStudies = (await getAllProjects()).slice(0, 5);
+  const caseStudies = (await getAllProjects()).slice(0, 4);
 
   return (
     <main className="min-h-screen">
       <section className="container mx-auto px-6 pt-22 pb-6 md:pt-28 md:pb-8">
-        <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-stretch">
-          <div className="frosted-glass flex h-full flex-col rounded-[24px] border border-white/50 px-7 py-6 md:px-8 md:py-8">
-            <div className="mb-4 flex flex-wrap gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-accent">
-              <span>Санкт-Петербург</span>
-              <span>Финансы</span>
-              <span>Стратегия</span>
-              <span>Сопровождение бизнеса</span>
-            </div>
-
-            <h1 className="max-w-4xl font-heading text-h1 font-bold leading-[1.05] text-primary">
+        <div className="mx-auto max-w-[1280px]">
+          <div className="frosted-glass flex h-full flex-col rounded-[24px] border border-white/50 px-8 py-7 md:px-12 md:py-10">
+            <h1 className="max-w-[980px] font-heading text-[clamp(2.6rem,1.8vw+2rem,4rem)] font-bold leading-[1.02] text-primary">
               Прокладываем путь деньгам — к вашему счёту.
             </h1>
 
-            <p className="mt-3 max-w-[760px] text-h4 leading-relaxed text-text-muted">
+            <p className="mt-4 max-w-[900px] text-[clamp(1.15rem,0.45vw+1rem,1.45rem)] leading-relaxed text-text-muted">
               Финансовые и юридические решения для бизнеса и частных клиентов.
             </p>
 
             <div className="mt-5 grid gap-3 md:grid-cols-3">
               {benefits.map((item) => (
                 <div
-                  key={item}
-                  className="rounded-card border border-white/45 bg-white/50 p-3.5 backdrop-blur-sm"
+                  key={item.text}
+                  className="rounded-card border border-white/45 bg-white/50 p-4 backdrop-blur-sm"
                 >
-                  <CircleCheckBig size={18} className="mb-2 text-accent" />
-                  <p className="text-sm leading-5 text-text-muted">{item}</p>
+                  <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-full bg-[color:rgba(10,37,64,0.08)]">
+                    {item.icon}
+                  </div>
+                  <p className="text-sm leading-6 text-text-muted">{item.text}</p>
                 </div>
               ))}
             </div>
@@ -175,64 +200,11 @@ export default async function HomeLanding() {
                 Форматы работы
               </a>
               <a
-                href="#cases-slider"
+                href="#cases"
                 className="button-soft-accent inline-flex min-h-[48px] w-full items-center justify-center px-5 py-2.5 text-sm"
               >
                 Кейсы и результаты
               </a>
-            </div>
-
-            <div className="mt-4 max-w-[800px] lg:mt-auto lg:-translate-y-[8px]">
-              <CasesSlider projects={caseStudies} />
-            </div>
-          </div>
-
-          <div className="frosted-glass flex h-full w-full flex-col rounded-[24px] border border-white/50 px-6 py-5 md:px-7 md:py-6 lg:h-[calc(100%-16px)] lg:self-start">
-            <p className="text-sm font-semibold uppercase tracking-[0.14em] text-accent">
-              Быстрый старт
-            </p>
-            <h2 className="mt-1.5 font-heading text-h3 font-bold text-primary">
-              Выберите формат и оставьте заявку
-            </h2>
-            <p className="mt-1.5 text-sm leading-5 text-text-muted">
-              Если задача уже понятна, перейдите к нужному формату. Если нужна помощь с выбором, оставьте
-              заявку и мы предложим оптимальный сценарий работы.
-            </p>
-
-            <div className="mt-3 flex flex-1 flex-col gap-2.5">
-              {formatCards.map((card) => (
-                <Link
-                  key={card.title}
-                  href={card.href}
-                  className="flex min-h-[108px] flex-1 rounded-card border border-white/45 bg-white/55 p-3.5 transition-transform hover:-translate-y-1"
-                >
-                  <div className="flex w-full items-start justify-between gap-3">
-                    <div>
-                      <h3 className="text-base font-bold leading-5 text-primary">{card.title}</h3>
-                      <p
-                        className="mt-1.5 overflow-hidden text-sm leading-5 text-text-muted"
-                        style={{
-                          display: '-webkit-box',
-                          WebkitLineClamp: 4,
-                          WebkitBoxOrient: 'vertical',
-                        }}
-                      >
-                        {card.description}
-                      </p>
-                    </div>
-                    <ArrowRight size={18} className="mt-1 shrink-0 text-accent" />
-                  </div>
-                </Link>
-              ))}
-            </div>
-
-            <div className="mt-3 rounded-card border border-[color:rgba(33,115,70,0.22)] bg-[color:rgba(33,115,70,0.08)] p-4 lg:h-[220px]">
-              <p className="text-sm font-semibold text-primary">Что чаще всего запрашивают</p>
-              <ul className="mt-3 space-y-3 text-sm leading-6 text-text-muted">
-                <li>Финансовый чек-ап и управленческий учет</li>
-                <li>Оптимизация издержек и прибыльности</li>
-                <li>Работа с долгами, судами и кредиторами</li>
-              </ul>
             </div>
           </div>
         </div>
@@ -240,8 +212,7 @@ export default async function HomeLanding() {
 
       <section id="formats" className="container mx-auto px-6 py-6 md:py-8">
         <div className="mb-6 text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.14em] text-accent">Форматы работы</p>
-          <h2 className="mt-3 font-heading text-h2 font-bold text-primary">
+          <h2 className="font-heading text-h2 font-bold text-primary">
             От разовой консультации до сопровождения бизнеса
           </h2>
         </div>
@@ -249,23 +220,29 @@ export default async function HomeLanding() {
           {formatCards.map((card) => (
             <article
               key={card.title}
-              className="frosted-glass rounded-[20px] border border-white/50 p-6 md:p-7"
+              className="frosted-glass rounded-[20px] border border-white/50 p-6 md:p-8"
             >
-              <h3 className="font-heading text-h3 font-bold text-primary">{card.title}</h3>
-              <p className="mt-3 text-body text-text-muted">{card.description}</p>
-              <ul className="mt-5 space-y-2 text-sm text-text-muted">
+              <h3 className="text-center font-heading text-h3 font-bold text-primary">{card.title}</h3>
+              <p className="mt-4 text-body text-text-muted">{card.description}</p>
+              <ul className="mt-6 space-y-3 text-sm text-text-muted">
                 {card.points.map((point) => (
-                  <li key={point} className="flex items-center gap-2">
-                    <CircleCheckBig size={16} className="text-accent" />
+                  <li key={point} className="flex items-center gap-3">
+                    <span className="h-2.5 w-2.5 rounded-full bg-primary/80" />
                     <span>{point}</span>
                   </li>
                 ))}
               </ul>
-              <div className="mt-6 flex flex-wrap gap-3">
-                <Link href={card.href} className="button-soft-accent px-5 py-3 text-sm">
+              <div className="mt-8 grid gap-3 md:grid-cols-2">
+                <Link
+                  href={card.href}
+                  className="button-soft-accent inline-flex min-h-[48px] w-full items-center justify-center px-5 py-3 text-center text-sm"
+                >
                   Перейти к разделу
                 </Link>
-                <a href="#contact-form" className="button-base px-5 py-3 text-sm">
+                <a
+                  href="#contact-form"
+                  className="button-base inline-flex min-h-[48px] w-full items-center justify-center px-5 py-3 text-center text-sm"
+                >
                   Обсудить задачу
                 </a>
               </div>
@@ -274,10 +251,46 @@ export default async function HomeLanding() {
         </div>
       </section>
 
+      <section id="cases" className="container mx-auto px-6 py-6 md:py-8">
+        <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div>
+            <h2 className="font-heading text-h2 font-bold text-primary">Кейсы и результаты</h2>
+            <p className="mt-3 max-w-[760px] text-body text-text-muted">
+              Показываем не абстрактные обещания, а реальные проекты: где снижали издержки, выстраивали контроль и помогали собственнику принимать решения на цифрах.
+            </p>
+          </div>
+          <Link href="/projects" className="inline-flex items-center gap-2 text-sm font-semibold text-primary transition-colors hover:text-accent">
+            Все кейсы
+            <ArrowRight size={16} />
+          </Link>
+        </div>
+
+        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+          {caseStudies.map((project) => (
+            <article
+              key={project.slug}
+              className="frosted-glass rounded-[18px] border border-white/50 p-6 md:p-7"
+            >
+              <h3 className="text-h4 font-bold text-primary">
+                {getBusinessTypeLabel(project.slug, project.title)}
+              </h3>
+              <p className="mt-3 text-sm font-medium leading-6 text-primary/75">{project.title}</p>
+              <p className="mt-4 text-sm leading-6 text-text-muted">{project.summary}</p>
+              <Link
+                href={`/projects/${project.slug}`}
+                className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary transition-colors hover:text-accent"
+              >
+                Смотреть кейс
+                <ArrowRight size={16} />
+              </Link>
+            </article>
+          ))}
+        </div>
+      </section>
+
       <section className="container mx-auto px-6 py-6 md:py-8">
         <div className="mb-6 text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.14em] text-accent">Популярные запросы</p>
-          <h2 className="mt-3 font-heading text-h2 font-bold text-primary">
+          <h2 className="font-heading text-h2 font-bold text-primary">
             С чем к нам приходят чаще всего
           </h2>
         </div>
@@ -288,7 +301,7 @@ export default async function HomeLanding() {
               key={item.title}
               className="frosted-glass rounded-[18px] border border-white/50 p-6 md:p-7"
             >
-              <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-[color:rgba(33,115,70,0.10)]">
+              <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-[color:rgba(10,37,64,0.08)]">
                 {item.icon}
               </div>
               <h3 className="text-h4 font-bold text-primary">{item.title}</h3>
@@ -309,10 +322,7 @@ export default async function HomeLanding() {
               key={item.title}
               className="frosted-glass rounded-[18px] border border-white/50 p-6 md:p-7"
             >
-              <p className="text-sm font-semibold uppercase tracking-[0.12em] text-accent">
-                Комплексное сопровождение
-              </p>
-              <h3 className="mt-3 text-h4 font-bold text-primary">{item.title}</h3>
+              <h3 className="text-h4 font-bold text-primary">{item.title}</h3>
               <p className="mt-3 text-body text-text-muted">{item.description}</p>
               <p className="mt-5 text-sm leading-6 text-text-muted">{item.details}</p>
             </article>
@@ -322,8 +332,7 @@ export default async function HomeLanding() {
 
       <section className="container mx-auto px-6 py-6 md:py-8">
         <div className="mb-6 text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.14em] text-accent">Этапы работы</p>
-          <h2 className="mt-3 font-heading text-h2 font-bold text-primary">
+          <h2 className="font-heading text-h2 font-bold text-primary">
             Работаем по понятной схеме
           </h2>
         </div>
@@ -334,7 +343,7 @@ export default async function HomeLanding() {
               key={step.title}
               className="frosted-glass rounded-[18px] border border-white/50 p-6 md:p-7"
             >
-              <div className="mb-5 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[color:rgba(33,115,70,0.12)] text-sm font-bold text-primary">
+              <div className="mb-5 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[color:rgba(10,37,64,0.08)] text-sm font-bold text-primary">
                 0{index + 1}
               </div>
               <h3 className="text-h4 font-bold text-primary">{step.title}</h3>
@@ -347,8 +356,7 @@ export default async function HomeLanding() {
       <section className="container mx-auto px-6 py-6 md:py-8">
         <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
           <div className="frosted-glass rounded-[22px] border border-white/50 p-6 md:p-7">
-            <p className="text-sm font-semibold uppercase tracking-[0.14em] text-accent">FAQ</p>
-            <h2 className="mt-3 font-heading text-h2 font-bold text-primary">
+            <h2 className="font-heading text-h2 font-bold text-primary">
               Частые вопросы перед стартом
             </h2>
             <p className="mt-4 text-body text-text-muted">
@@ -360,7 +368,7 @@ export default async function HomeLanding() {
             {faqItems.map((item) => (
               <details
                 key={item.question}
-              className="frosted-glass rounded-[18px] border border-white/50 p-5 md:p-6"
+                className="frosted-glass rounded-[18px] border border-white/50 p-5 md:p-6"
               >
                 <summary className="cursor-pointer list-none text-h4 font-bold text-primary">
                   {item.question}
@@ -375,8 +383,7 @@ export default async function HomeLanding() {
       <section id="contact-form" className="container mx-auto px-6 py-6 md:py-8">
         <div className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
           <div className="frosted-glass rounded-[24px] border border-[color:rgba(33,115,70,0.24)] bg-[color:rgba(33,115,70,0.06)] p-7 md:p-9">
-            <p className="text-sm font-semibold uppercase tracking-[0.14em] text-accent">Связаться с нами</p>
-            <h2 className="mt-3 font-heading text-h2 font-bold text-primary">
+            <h2 className="font-heading text-h2 font-bold text-primary">
               Оставьте заявку на консультацию
             </h2>
             <p className="mt-4 text-body text-text-muted">
