@@ -10,6 +10,8 @@ import {
   WalletCards,
 } from 'lucide-react';
 import ContactForm from '@/components/forms/ContactForm';
+import CasesSlider from '@/components/home/CasesSlider';
+import { getAllProjects } from '@/app/projects/data/getAllProjects';
 import {
   expressConsultations,
   legacyComplexServices,
@@ -124,13 +126,15 @@ const faqItems = [
   },
 ];
 
-export default function HomeLanding() {
+export default async function HomeLanding() {
+  const caseStudies = (await getAllProjects()).slice(0, 5);
+
   return (
     <main className="min-h-screen">
-      <section className="container mx-auto px-6 pt-28 pb-8 md:pt-36 md:pb-12">
-        <div className="grid gap-8 lg:grid-cols-[1.25fr_0.75fr] lg:items-stretch">
-          <div className="frosted-glass rounded-[24px] border border-white/50 px-7 py-8 md:px-10 md:py-12">
-            <div className="mb-5 flex flex-wrap gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-accent">
+      <section className="container mx-auto px-6 pt-22 pb-6 md:pt-28 md:pb-8">
+        <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-stretch">
+          <div className="frosted-glass flex h-full flex-col rounded-[24px] border border-white/50 px-7 py-6 md:px-8 md:py-8">
+            <div className="mb-4 flex flex-wrap gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-accent">
               <span>Санкт-Петербург</span>
               <span>Финансы</span>
               <span>Стратегия</span>
@@ -141,58 +145,80 @@ export default function HomeLanding() {
               Прокладываем путь деньгам — к вашему счёту.
             </h1>
 
-            <p className="mt-5 max-w-3xl text-h4 leading-relaxed text-text-muted">
+            <p className="mt-3 max-w-[760px] text-h4 leading-relaxed text-text-muted">
               Финансовые и юридические решения для бизнеса и частных клиентов.
             </p>
 
-            <div className="mt-8 flex flex-wrap gap-3">
-              <a href="#contact-form" className="button-base px-6 py-3 text-sm">
-                Получить консультацию
-              </a>
-              <a href="#formats" className="button-soft-accent px-6 py-3 text-sm">
-                Смотреть форматы работы
-              </a>
-              <Link href="/projects" className="button-soft-accent px-6 py-3 text-sm">
-                Кейсы и результаты
-              </Link>
-            </div>
-
-            <div className="mt-8 grid gap-4 md:grid-cols-3">
+            <div className="mt-5 grid gap-3 md:grid-cols-3">
               {benefits.map((item) => (
                 <div
                   key={item}
-                  className="rounded-card border border-white/45 bg-white/50 p-4 backdrop-blur-sm"
+                  className="rounded-card border border-white/45 bg-white/50 p-3.5 backdrop-blur-sm"
                 >
-                  <CircleCheckBig size={18} className="mb-3 text-accent" />
-                  <p className="text-sm leading-6 text-text-muted">{item}</p>
+                  <CircleCheckBig size={18} className="mb-2 text-accent" />
+                  <p className="text-sm leading-5 text-text-muted">{item}</p>
                 </div>
               ))}
             </div>
+
+            <div className="mt-3 grid gap-3 md:grid-cols-3">
+              <a
+                href="#contact-form"
+                className="button-base inline-flex min-h-[48px] w-full items-center justify-center px-5 py-2.5 text-sm"
+              >
+                Получить консультацию
+              </a>
+              <a
+                href="#formats"
+                className="button-soft-accent inline-flex min-h-[48px] w-full items-center justify-center px-5 py-2.5 text-sm"
+              >
+                Форматы работы
+              </a>
+              <a
+                href="#cases-slider"
+                className="button-soft-accent inline-flex min-h-[48px] w-full items-center justify-center px-5 py-2.5 text-sm"
+              >
+                Кейсы и результаты
+              </a>
+            </div>
+
+            <div className="mt-4 max-w-[800px] lg:mt-auto lg:-translate-y-[8px]">
+              <CasesSlider projects={caseStudies} />
+            </div>
           </div>
 
-          <div className="frosted-glass rounded-[24px] border border-white/50 px-7 py-8 md:px-8 md:py-10">
+          <div className="frosted-glass flex h-full w-full flex-col rounded-[24px] border border-white/50 px-6 py-5 md:px-7 md:py-6 lg:h-[calc(100%-16px)] lg:self-start">
             <p className="text-sm font-semibold uppercase tracking-[0.14em] text-accent">
               Быстрый старт
             </p>
-            <h2 className="mt-3 font-heading text-h3 font-bold text-primary">
+            <h2 className="mt-1.5 font-heading text-h3 font-bold text-primary">
               Выберите формат и оставьте заявку
             </h2>
-            <p className="mt-4 text-body text-text-muted">
+            <p className="mt-1.5 text-sm leading-5 text-text-muted">
               Если задача уже понятна, перейдите к нужному формату. Если нужна помощь с выбором, оставьте
               заявку и мы предложим оптимальный сценарий работы.
             </p>
 
-            <div className="mt-6 space-y-3">
+            <div className="mt-3 flex flex-1 flex-col gap-2.5">
               {formatCards.map((card) => (
                 <Link
                   key={card.title}
                   href={card.href}
-                  className="block rounded-card border border-white/45 bg-white/55 p-4 transition-transform hover:-translate-y-1"
+                  className="flex min-h-[108px] flex-1 rounded-card border border-white/45 bg-white/55 p-3.5 transition-transform hover:-translate-y-1"
                 >
-                  <div className="flex items-start justify-between gap-3">
+                  <div className="flex w-full items-start justify-between gap-3">
                     <div>
-                      <h3 className="text-base font-bold text-primary">{card.title}</h3>
-                      <p className="mt-2 text-sm leading-6 text-text-muted">{card.description}</p>
+                      <h3 className="text-base font-bold leading-5 text-primary">{card.title}</h3>
+                      <p
+                        className="mt-1.5 overflow-hidden text-sm leading-5 text-text-muted"
+                        style={{
+                          display: '-webkit-box',
+                          WebkitLineClamp: 4,
+                          WebkitBoxOrient: 'vertical',
+                        }}
+                      >
+                        {card.description}
+                      </p>
                     </div>
                     <ArrowRight size={18} className="mt-1 shrink-0 text-accent" />
                   </div>
@@ -200,9 +226,9 @@ export default function HomeLanding() {
               ))}
             </div>
 
-            <div className="mt-6 rounded-card border border-[color:rgba(33,115,70,0.22)] bg-[color:rgba(33,115,70,0.08)] p-4">
+            <div className="mt-3 rounded-card border border-[color:rgba(33,115,70,0.22)] bg-[color:rgba(33,115,70,0.08)] p-4 lg:h-[220px]">
               <p className="text-sm font-semibold text-primary">Что чаще всего запрашивают</p>
-              <ul className="mt-3 space-y-2 text-sm leading-6 text-text-muted">
+              <ul className="mt-3 space-y-3 text-sm leading-6 text-text-muted">
                 <li>Финансовый чек-ап и управленческий учет</li>
                 <li>Оптимизация издержек и прибыльности</li>
                 <li>Работа с долгами, судами и кредиторами</li>
@@ -212,18 +238,18 @@ export default function HomeLanding() {
         </div>
       </section>
 
-      <section id="formats" className="container mx-auto px-6 py-8 md:py-12">
-        <div className="mb-8 text-center">
+      <section id="formats" className="container mx-auto px-6 py-6 md:py-8">
+        <div className="mb-6 text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.14em] text-accent">Форматы работы</p>
           <h2 className="mt-3 font-heading text-h2 font-bold text-primary">
             От разовой консультации до сопровождения бизнеса
           </h2>
         </div>
-        <div className="grid gap-6 lg:grid-cols-2">
+        <div className="grid gap-5 lg:grid-cols-2">
           {formatCards.map((card) => (
             <article
               key={card.title}
-              className="frosted-glass rounded-[20px] border border-white/50 p-7"
+              className="frosted-glass rounded-[20px] border border-white/50 p-6 md:p-7"
             >
               <h3 className="font-heading text-h3 font-bold text-primary">{card.title}</h3>
               <p className="mt-3 text-body text-text-muted">{card.description}</p>
@@ -248,19 +274,19 @@ export default function HomeLanding() {
         </div>
       </section>
 
-      <section className="container mx-auto px-6 py-8 md:py-12">
-        <div className="mb-8 text-center">
+      <section className="container mx-auto px-6 py-6 md:py-8">
+        <div className="mb-6 text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.14em] text-accent">Популярные запросы</p>
           <h2 className="mt-3 font-heading text-h2 font-bold text-primary">
             С чем к нам приходят чаще всего
           </h2>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {featuredSolutions.map((item) => (
             <article
               key={item.title}
-              className="frosted-glass rounded-[18px] border border-white/50 p-6"
+              className="frosted-glass rounded-[18px] border border-white/50 p-6 md:p-7"
             >
               <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-[color:rgba(33,115,70,0.10)]">
                 {item.icon}
@@ -276,12 +302,12 @@ export default function HomeLanding() {
         </div>
       </section>
 
-      <section className="container mx-auto px-6 py-8 md:py-12">
-        <div className="grid gap-6 lg:grid-cols-3">
+      <section className="container mx-auto px-6 py-6 md:py-8">
+        <div className="grid gap-5 lg:grid-cols-3">
           {legacyComplexServices.map((item) => (
             <article
               key={item.title}
-              className="frosted-glass rounded-[18px] border border-white/50 p-7"
+              className="frosted-glass rounded-[18px] border border-white/50 p-6 md:p-7"
             >
               <p className="text-sm font-semibold uppercase tracking-[0.12em] text-accent">
                 Комплексное сопровождение
@@ -294,19 +320,19 @@ export default function HomeLanding() {
         </div>
       </section>
 
-      <section className="container mx-auto px-6 py-8 md:py-12">
-        <div className="mb-8 text-center">
+      <section className="container mx-auto px-6 py-6 md:py-8">
+        <div className="mb-6 text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.14em] text-accent">Этапы работы</p>
           <h2 className="mt-3 font-heading text-h2 font-bold text-primary">
             Работаем по понятной схеме
           </h2>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
           {steps.map((step, index) => (
             <article
               key={step.title}
-              className="frosted-glass rounded-[18px] border border-white/50 p-6"
+              className="frosted-glass rounded-[18px] border border-white/50 p-6 md:p-7"
             >
               <div className="mb-5 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[color:rgba(33,115,70,0.12)] text-sm font-bold text-primary">
                 0{index + 1}
@@ -318,9 +344,9 @@ export default function HomeLanding() {
         </div>
       </section>
 
-      <section className="container mx-auto px-6 py-8 md:py-12">
-        <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
-          <div className="frosted-glass rounded-[22px] border border-white/50 p-7">
+      <section className="container mx-auto px-6 py-6 md:py-8">
+        <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+          <div className="frosted-glass rounded-[22px] border border-white/50 p-6 md:p-7">
             <p className="text-sm font-semibold uppercase tracking-[0.14em] text-accent">FAQ</p>
             <h2 className="mt-3 font-heading text-h2 font-bold text-primary">
               Частые вопросы перед стартом
@@ -334,7 +360,7 @@ export default function HomeLanding() {
             {faqItems.map((item) => (
               <details
                 key={item.question}
-                className="frosted-glass rounded-[18px] border border-white/50 p-6"
+              className="frosted-glass rounded-[18px] border border-white/50 p-5 md:p-6"
               >
                 <summary className="cursor-pointer list-none text-h4 font-bold text-primary">
                   {item.question}
@@ -346,9 +372,9 @@ export default function HomeLanding() {
         </div>
       </section>
 
-      <section id="contact-form" className="container mx-auto px-6 py-8 md:py-12">
-        <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
-          <div className="frosted-glass rounded-[24px] border border-white/50 p-7 md:p-9">
+      <section id="contact-form" className="container mx-auto px-6 py-6 md:py-8">
+        <div className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
+          <div className="frosted-glass rounded-[24px] border border-[color:rgba(33,115,70,0.24)] bg-[color:rgba(33,115,70,0.06)] p-7 md:p-9">
             <p className="text-sm font-semibold uppercase tracking-[0.14em] text-accent">Связаться с нами</p>
             <h2 className="mt-3 font-heading text-h2 font-bold text-primary">
               Оставьте заявку на консультацию
@@ -370,6 +396,15 @@ export default function HomeLanding() {
                 <p className="font-semibold text-primary">Формат работы</p>
                 <p>Санкт-Петербург и вся Россия, онлайн и очно по согласованию.</p>
               </div>
+            </div>
+
+            <div className="mt-6 rounded-card border border-white/50 bg-white/45 p-4">
+              <p className="text-sm font-semibold text-primary">Что будет после заявки</p>
+              <ul className="mt-3 space-y-2 text-sm leading-5 text-text-muted">
+                <li>Свяжемся и уточним задачу.</li>
+                <li>Предложим подходящий формат работы.</li>
+                <li>Согласуем следующий практический шаг.</li>
+              </ul>
             </div>
           </div>
 
