@@ -6,6 +6,8 @@ Allow: /
 Disallow: /api/
 Disallow: /docs/
 Disallow: /documents/
+Disallow: /virtuals/
+Disallow: /casinoet/
 
 # Specify the location of the sitemap
 Sitemap: https://pc-consult.ru/sitemap.xml
