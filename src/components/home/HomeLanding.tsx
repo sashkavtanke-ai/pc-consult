@@ -165,7 +165,7 @@ export default async function HomeLanding() {
         <div className="mx-auto max-w-[1280px]">
           <div className="frosted-glass flex h-full flex-col rounded-[24px] border border-white/50 px-8 py-7 md:px-12 md:py-10">
             <h1 className="max-w-[980px] font-heading text-[clamp(2.6rem,1.8vw+2rem,4rem)] font-bold leading-[1.02] text-primary">
-              Прокладываем путь деньгам — к вашему счёту.
+              Прокладываем деньгам путь к вашему счёту.
             </h1>
 
             <p className="mt-4 max-w-[900px] text-[clamp(1.15rem,0.45vw+1rem,1.45rem)] leading-relaxed text-text-muted">
