@@ -17,6 +17,19 @@ const categoryOrder: ConsultationCategory[] = [
   'Долги, кредиторы, суды',
 ];
 
+const detailLinksByItemId: Partial<Record<ExpressConsultationItem['id'], string>> = {
+  'growth-audit': '/services/financial-modeling',
+  'financial-checkup': '/services/financial-modeling',
+  'mini-model': '/services/financial-modeling',
+  'cost-opt': '/services/cost-optimization',
+  'checklist-consult': '/services/cost-optimization',
+  'invest-audit': '/services/financial-modeling',
+  'cancel-order': '/services/court-order-cancel',
+  'cancel-order-fl': '/services/court-order-cancel',
+  'debt-audit': '/services/debt-restructuring',
+  'debt-restructure': '/services/debt-restructuring',
+};
+
 export default function ExpressConsultationsPageClient() {
   const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
 
@@ -80,13 +93,23 @@ export default function ExpressConsultationsPageClient() {
                         </li>
                       ) : null}
                     </ul>
-                    <button
-                      type="button"
-                      onClick={() => setSelectedTopic(item.title)}
-                      className="button-soft-accent mt-auto w-fit px-6 py-3 text-sm"
-                    >
-                      Получить консультацию
-                    </button>
+                    <div className="mt-auto flex flex-wrap items-center gap-4">
+                      <button
+                        type="button"
+                        onClick={() => setSelectedTopic(item.title)}
+                        className="button-soft-accent w-fit px-6 py-3 text-sm"
+                      >
+                        Получить консультацию
+                      </button>
+                      {detailLinksByItemId[item.id] ? (
+                        <Link
+                          href={detailLinksByItemId[item.id]!}
+                          className="text-sm font-semibold text-primary transition-colors hover:text-accent"
+                        >
+                          Подробнее об услуге
+                        </Link>
+                      ) : null}
+                    </div>
                   </article>
                 ))}
               </div>

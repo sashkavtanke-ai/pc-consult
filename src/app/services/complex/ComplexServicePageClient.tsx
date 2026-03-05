@@ -11,6 +11,11 @@ import {
   type LegacyServiceCard,
 } from '../servicesData';
 
+const detailLinksByOfferId: Partial<Record<string, string>> = {
+  'business-valuation': '/services/ocenka-biznesa',
+  'business-attractiveness': '/services/ocenka-biznesa',
+};
+
 export default function ComplexServicePageClient() {
   const [selectedCard, setSelectedCard] = useState<LegacyServiceCard | null>(null);
   const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
@@ -84,13 +89,23 @@ export default function ComplexServicePageClient() {
                   <h3 className="mb-3 text-h4 font-bold text-primary">{item.title}</h3>
                   <p className="mb-4 text-body text-text-muted">{item.description}</p>
                   <p className="text-sm font-semibold text-primary">Стоимость от: {item.priceFrom}</p>
-                  <button
-                    type="button"
-                    onClick={() => setSelectedTopic(item.title)}
-                    className="button-soft-accent mt-auto w-fit px-4 py-2 text-sm"
-                  >
-                    Получить услугу
-                  </button>
+                  <div className="mt-auto flex flex-wrap items-center gap-3">
+                    <button
+                      type="button"
+                      onClick={() => setSelectedTopic(item.title)}
+                      className="button-soft-accent w-fit px-4 py-2 text-sm"
+                    >
+                      Получить услугу
+                    </button>
+                    {detailLinksByOfferId[item.id] ? (
+                      <Link
+                        href={detailLinksByOfferId[item.id]!}
+                        className="text-sm font-semibold text-primary transition-colors hover:text-accent"
+                      >
+                        Подробнее об услуге
+                      </Link>
+                    ) : null}
+                  </div>
                 </article>
               ))}
             </div>
@@ -107,13 +122,23 @@ export default function ComplexServicePageClient() {
                   <h3 className="mb-3 text-h4 font-bold text-primary">{item.title}</h3>
                   <p className="mb-4 text-body text-text-muted">{item.description}</p>
                   <p className="text-sm font-semibold text-primary">Стоимость от: {item.priceFrom}</p>
-                  <button
-                    type="button"
-                    onClick={() => setSelectedTopic(item.title)}
-                    className="button-soft-accent mt-auto w-fit px-4 py-2 text-sm"
-                  >
-                    Получить услугу
-                  </button>
+                  <div className="mt-auto flex flex-wrap items-center gap-3">
+                    <button
+                      type="button"
+                      onClick={() => setSelectedTopic(item.title)}
+                      className="button-soft-accent w-fit px-4 py-2 text-sm"
+                    >
+                      Получить услугу
+                    </button>
+                    {detailLinksByOfferId[item.id] ? (
+                      <Link
+                        href={detailLinksByOfferId[item.id]!}
+                        className="text-sm font-semibold text-primary transition-colors hover:text-accent"
+                      >
+                        Подробнее об услуге
+                      </Link>
+                    ) : null}
+                  </div>
                 </article>
               ))}
             </div>

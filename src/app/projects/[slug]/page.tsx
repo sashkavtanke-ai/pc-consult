@@ -11,6 +11,55 @@ interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
+type RelatedService = {
+  href: string;
+  title: string;
+  description: string;
+};
+
+const relatedServiceByProjectSlug: Record<string, RelatedService> = {
+  '1-portfolio-distribution': {
+    href: '/services/cost-optimization',
+    title: 'Оптимизация издержек',
+    description: 'Аудит затрат и план снижения финансовой нагрузки без потери управляемости.',
+  },
+  '2-portfolio-vet': {
+    href: '/services/financial-modeling',
+    title: 'Финансовая модель бизнеса',
+    description: 'Настройка управленческого контура и модели денежных потоков для сети клиник.',
+  },
+  '3-portfolio-electronics': {
+    href: '/services/financial-modeling',
+    title: 'Финансовая модель бизнеса',
+    description: 'Финансовое планирование для устойчивого роста и контроля cash flow.',
+  },
+  '4-portfolio-construction': {
+    href: '/services/ocenka-biznesa',
+    title: 'Оценка стоимости бизнеса',
+    description: 'Оценка компании и инвестиционной привлекательности для сделок и финансирования.',
+  },
+  '5-portfolio-beauty': {
+    href: '/services/court-order-cancel',
+    title: 'Отмена судебного приказа',
+    description: 'Быстрая юридическая защита и снижение рисков взыскания.',
+  },
+  '6-portfolio-pvz': {
+    href: '/services/debt-restructuring',
+    title: 'Реструктуризация долгов',
+    description: 'Снижение долговой нагрузки и стабилизация платежного графика.',
+  },
+  '7-portfolio-legal': {
+    href: '/services/court-order-cancel',
+    title: 'Отмена судебного приказа',
+    description: 'Экспресс-формат для сложных споров и защиты бизнеса в сжатые сроки.',
+  },
+  '8-portfolio-energy': {
+    href: '/services/ocenka-biznesa',
+    title: 'Оценка стоимости бизнеса',
+    description: 'Расчет стоимости компании и подготовка аргументов для инвесторов.',
+  },
+};
+
 function stripHtml(html: string): string {
   return html
     .replace(/<style[\s\S]*?>[\s\S]*?<\/style>/gi, ' ')
@@ -100,6 +149,7 @@ export default async function ProjectPage({ params }: PageProps) {
   }
 
   const description = getDescription(project);
+  const relatedService = relatedServiceByProjectSlug[project.slug];
 
   return (
     <main className="min-h-screen bg-background">
@@ -126,6 +176,20 @@ export default async function ProjectPage({ params }: PageProps) {
             className="prose lg:prose-xl max-w-none text-body text-text-muted"
             dangerouslySetInnerHTML={{ __html: project.description }}
           />
+
+          {relatedService ? (
+            <section className="mt-10 rounded-card border border-[rgba(33,115,70,0.25)] bg-[rgba(33,115,70,0.08)] p-6">
+              <h2 className="text-h4 font-bold text-primary">Услуга по теме кейса</h2>
+              <h3 className="mt-2 text-h4 font-semibold text-primary">{relatedService.title}</h3>
+              <p className="mt-3 text-body text-text-muted">{relatedService.description}</p>
+              <Link
+                href={relatedService.href}
+                className="button-base mt-5 inline-flex items-center justify-center px-6 py-3 text-sm text-black"
+              >
+                Перейти к услуге
+              </Link>
+            </section>
+          ) : null}
         </article>
       </div>
 
