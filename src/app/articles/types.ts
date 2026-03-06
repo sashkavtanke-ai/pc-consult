@@ -3,6 +3,11 @@ export interface ArticleAuthor {
   type: string;
 }
 
+export interface ArticleFaqItem {
+  question: string;
+  answer: string;
+}
+
 export interface ArticleData {
   slug: string;
   title: string;
@@ -11,8 +16,7 @@ export interface ArticleData {
   datePublished: string;
   author: ArticleAuthor;
   ctaTopic?: string;
-  /** SEO-описание статьи (опционально) */
   seoDescription?: string;
-  /** SEO-ключевые слова через запятую (опционально) */
   seoKeywords?: string;
+  faq?: ArticleFaqItem[];
 }

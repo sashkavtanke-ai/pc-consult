@@ -56,6 +56,10 @@ export async function getAllArticles(): Promise<ArticleData[]> {
     import('./postroenie-voronki-prodazh-b2b'),
     import('./upravlencheskiy-uchet-svoimi-rukami-kak-sobrat-dashboard-dlya-direktora'),
     import('./upravlenie-riskami-kak-sostavit-plan-b'),
+    import('./otchet-dvizheniya-denezhnyh-sredstv'),
+    import('./kak-snizit-nalogi'),
+    import('./finansovaya-model-kak-sostavit'),
+    import('./zarubezhnye-scheta-fns'),
   ]);
 
   return modules.map((mod) => mod.default as ArticleData);

@@ -105,6 +105,7 @@ export default async function ArticlePage({ params }: PageProps) {
 
   const hasImage = Boolean(article.imageUrl && article.imageUrl.trim().length > 0);
   const description = getDescription(article);
+  const faq = article.faq?.filter((item) => item.question.trim() && item.answer.trim());
 
   return (
     <main className="min-h-screen bg-background">
@@ -184,6 +185,25 @@ export default async function ArticlePage({ params }: PageProps) {
           }),
         }}
       />
+      {faq && faq.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'FAQPage',
+              mainEntity: faq.map((item) => ({
+                '@type': 'Question',
+                name: item.question,
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: item.answer,
+                },
+              })),
+            }),
+          }}
+        />
+      )}
     </main>
   );
 }
