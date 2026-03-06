@@ -59,6 +59,7 @@ export async function getAllArticles(): Promise<ArticleData[]> {
     import('./otchet-dvizheniya-denezhnyh-sredstv'),
     import('./kak-snizit-nalogi'),
     import('./finansovaya-model-kak-sostavit'),
+    import('./ocenka-biznesa-kak-opredelit-stoimost'),
     import('./zarubezhnye-scheta-fns'),
   ]);
 

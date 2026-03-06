@@ -21,7 +21,8 @@ export default async function ArticlesPage() {
     ['otchet-dvizheniya-denezhnyh-sredstv', 0],
     ['kak-snizit-nalogi', 1],
     ['finansovaya-model-kak-sostavit', 2],
-    ['zarubezhnye-scheta-fns', 3],
+    ['ocenka-biznesa-kak-opredelit-stoimost', 3],
+    ['zarubezhnye-scheta-fns', 4],
   ]);
 
   const sortedArticles = [...articles].sort((a, b) => {
