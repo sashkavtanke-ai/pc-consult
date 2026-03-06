@@ -17,6 +17,29 @@ export const metadata: Metadata = {
 
 export default async function ArticlesPage() {
   const articles: ArticleData[] = await getAllArticles();
+  const featuredSlugs = new Map([
+    ['otchet-dvizheniya-denezhnyh-sredstv', 0],
+    ['kak-snizit-nalogi', 1],
+    ['finansovaya-model-kak-sostavit', 2],
+    ['zarubezhnye-scheta-fns', 3],
+  ]);
+
+  const sortedArticles = [...articles].sort((a, b) => {
+    const aRank = featuredSlugs.get(a.slug);
+    const bRank = featuredSlugs.get(b.slug);
+
+    if (aRank !== undefined || bRank !== undefined) {
+      if (aRank === undefined) return 1;
+      if (bRank === undefined) return -1;
+      return aRank - bRank;
+    }
+
+    if (a.datePublished !== b.datePublished) {
+      return b.datePublished.localeCompare(a.datePublished);
+    }
+
+    return a.title.localeCompare(b.title, 'ru');
+  });
 
   return (
     <main>
@@ -30,7 +53,7 @@ export default async function ArticlesPage() {
         <h2 className="mb-6 text-center text-h3 font-bold text-primary">
           Статьи по стратегии, финансам и управлению бизнесом
         </h2>
-        <ArticlesGrid articles={articles} />
+        <ArticlesGrid articles={sortedArticles} />
       </div>
     </main>
   );

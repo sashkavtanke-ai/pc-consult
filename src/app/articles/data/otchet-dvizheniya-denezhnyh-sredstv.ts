@@ -73,6 +73,12 @@ const article: ArticleData = {
     <h2 class="font-heading text-h2 font-bold text-primary mt-12 mb-6">Практический эффект для собственника</h2>
     <p>Хорошо настроенный ОДДС помогает предотвращать кассовые разрывы, видеть последствия новых проектов, корректировать графики оплат и принимать решения на основе цифр, а не интуиции.</p>
     <p>Если у компании нет системного ОДДС, бизнес фактически управляется вслепую.</p>
+    <h2 class="font-heading text-h2 font-bold text-primary mt-12 mb-6">Смотрите также</h2>
+    <ul class="list-disc list-inside mt-4 space-y-2">
+      <li><a href="/services/financial-modeling" class="text-accent underline">Услуга: Финансовое моделирование для бизнеса</a></li>
+      <li><a href="/services/cost-optimization" class="text-accent underline">Услуга: Оптимизация издержек</a></li>
+      <li><a href="/articles/finansovaya-model-kak-sostavit" class="text-accent underline">Статья: Финансовая модель — как составить</a></li>
+    </ul>
   `,
 };
 

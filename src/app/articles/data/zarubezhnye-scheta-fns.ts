@@ -66,6 +66,12 @@ const article: ArticleData = {
       <li>Проводить точечную проверку перед отправкой документов.</li>
     </ol>
     <p>Такой подход снижает риски и убирает «пожарный режим» в вопросах международных счетов.</p>
+    <h2 class="font-heading text-h2 font-bold text-primary mt-12 mb-6">Смотрите также</h2>
+    <ul class="list-disc list-inside mt-4 space-y-2">
+      <li><a href="/services/complex" class="text-accent underline">Услуга: Комплексное сопровождение бизнеса</a></li>
+      <li><a href="/articles/kak-snizit-nalogi" class="text-accent underline">Статья: Как снизить налоги законно</a></li>
+      <li><a href="/contact" class="text-accent underline">Связаться с экспертом</a></li>
+    </ul>
   `,
 };
 

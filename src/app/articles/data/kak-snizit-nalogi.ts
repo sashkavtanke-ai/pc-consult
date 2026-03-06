@@ -70,6 +70,12 @@ const article: ArticleData = {
       <li>Внедрение регулярного мониторинга и контрольных точек.</li>
     </ol>
     <p>Такой подход снижает налоги без «серых» инструментов и одновременно усиливает финансовую устойчивость бизнеса.</p>
+    <h2 class="font-heading text-h2 font-bold text-primary mt-12 mb-6">Смотрите также</h2>
+    <ul class="list-disc list-inside mt-4 space-y-2">
+      <li><a href="/services/cost-optimization" class="text-accent underline">Услуга: Оптимизация издержек</a></li>
+      <li><a href="/services/financial-modeling" class="text-accent underline">Услуга: Финансовое моделирование</a></li>
+      <li><a href="/articles/zarubezhnye-scheta-fns" class="text-accent underline">Статья: Зарубежные счета и отчетность ФНС</a></li>
+    </ul>
   `,
 };
 

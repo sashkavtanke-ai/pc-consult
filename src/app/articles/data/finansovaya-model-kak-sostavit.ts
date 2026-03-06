@@ -69,6 +69,12 @@ const article: ArticleData = {
     <h2 class="font-heading text-h2 font-bold text-primary mt-12 mb-6">Когда модель нужна срочно</h2>
     <p>Финмодель критична, если компания масштабируется, привлекает кредит или инвестора, запускает новый продукт, теряет маржу или регулярно сталкивается с дефицитом ликвидности.</p>
     <p>В этих случаях вопрос уже не «делать или нет», а «насколько быстро модель должна быть готова».</p>
+    <h2 class="font-heading text-h2 font-bold text-primary mt-12 mb-6">Смотрите также</h2>
+    <ul class="list-disc list-inside mt-4 space-y-2">
+      <li><a href="/services/financial-modeling" class="text-accent underline">Услуга: Финансовое моделирование</a></li>
+      <li><a href="/services/ocenka-biznesa" class="text-accent underline">Услуга: Оценка бизнеса</a></li>
+      <li><a href="/articles/otchet-dvizheniya-denezhnyh-sredstv" class="text-accent underline">Статья: Отчет о движении денежных средств</a></li>
+    </ul>
   `,
 };
 
