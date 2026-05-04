@@ -163,46 +163,46 @@ export default async function HomeLanding() {
   return (
     <main className="min-h-screen">
       <section className="container mx-auto px-6 pt-22 pb-6 md:pt-28 md:pb-8">
-        <div className="mx-auto max-w-[1360px]">
-          <div className="frosted-glass flex h-full flex-col rounded-[24px] border border-white/50 px-8 py-8 md:px-14 md:py-12">
-            <h1 className="max-w-[1080px] font-heading text-[clamp(2.9rem,2vw+2.2rem,4.5rem)] font-bold leading-[1.01] text-primary">
+        <div className="mx-auto max-w-[1280px]">
+          <div className="frosted-glass flex h-full flex-col rounded-[24px] border border-white/50 px-8 py-7 md:px-12 md:py-10">
+            <h1 className="max-w-[980px] font-heading text-[clamp(2.6rem,1.8vw+2rem,4rem)] font-bold leading-[1.02] text-primary">
               Прокладываем деньгам путь к вашему счёту.
             </h1>
 
-            <p className="mt-5 max-w-[980px] text-[clamp(1.2rem,0.55vw+1.05rem,1.6rem)] leading-relaxed text-text-muted">
+            <p className="mt-4 max-w-[900px] text-[clamp(1.15rem,0.45vw+1rem,1.45rem)] leading-relaxed text-text-muted">
               Финансовые и юридические решения для бизнеса и частных клиентов.
             </p>
 
-            <div className="mt-6 grid gap-4 md:grid-cols-3">
+            <div className="mt-5 grid gap-3 md:grid-cols-3">
               {benefits.map((item) => (
                 <div
                   key={item.text}
-                  className="rounded-card border border-white/45 bg-white/50 p-5 backdrop-blur-sm"
+                  className="rounded-card border border-white/45 bg-white/50 p-4 backdrop-blur-sm"
                 >
-                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-[color:rgba(10,37,64,0.08)]">
+                  <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-full bg-[color:rgba(10,37,64,0.08)]">
                     {item.icon}
                   </div>
-                  <p className="text-base leading-7 text-text-muted">{item.text}</p>
+                  <p className="text-sm leading-6 text-text-muted">{item.text}</p>
                 </div>
               ))}
             </div>
 
-            <div className="mt-4 grid gap-4 md:grid-cols-3">
+            <div className="mt-3 grid gap-3 md:grid-cols-3">
               <a
                 href="#contact-form"
-                className="button-base inline-flex min-h-[54px] w-full items-center justify-center px-6 py-3 text-base"
+                className="button-base inline-flex min-h-[48px] w-full items-center justify-center px-5 py-2.5 text-sm"
               >
                 Получить консультацию
               </a>
               <a
                 href="#formats"
-                className="button-soft-accent inline-flex min-h-[54px] w-full items-center justify-center px-6 py-3 text-base"
+                className="button-soft-accent inline-flex min-h-[48px] w-full items-center justify-center px-5 py-2.5 text-sm"
               >
                 Форматы работы
               </a>
               <a
                 href="#cases"
-                className="button-soft-accent inline-flex min-h-[54px] w-full items-center justify-center px-6 py-3 text-base"
+                className="button-soft-accent inline-flex min-h-[48px] w-full items-center justify-center px-5 py-2.5 text-sm"
               >
                 Кейсы и результаты
               </a>
@@ -235,16 +235,16 @@ export default async function HomeLanding() {
                   </li>
                 ))}
               </ul>
-              <div className="mt-8 grid gap-3 md:mx-auto md:max-w-[520px] md:grid-cols-2">
+              <div className="mt-8 grid gap-3 md:grid-cols-2">
                 <Link
                   href={card.href}
-                  className="button-soft-accent inline-flex min-h-[54px] w-full items-center justify-center px-6 py-3 text-center text-base"
+                  className="button-soft-accent inline-flex min-h-[48px] w-full items-center justify-center px-5 py-3 text-center text-sm"
                 >
                   Перейти к разделу
                 </Link>
                 <a
                   href="#contact-form"
-                  className="button-base inline-flex min-h-[54px] w-full items-center justify-center px-6 py-3 text-center text-base"
+                  className="button-base inline-flex min-h-[48px] w-full items-center justify-center px-5 py-3 text-center text-sm"
                 >
                   Обсудить задачу
                 </a>
