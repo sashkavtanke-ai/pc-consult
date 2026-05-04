@@ -15,6 +15,7 @@ import {
   legacyComplexServices,
   serviceOffers,
 } from '@/app/services/servicesData';
+import AntiCrisisAuditPromo from './AntiCrisisAuditPromo';
 
 const formatCards = [
   {
@@ -209,6 +210,8 @@ export default async function HomeLanding() {
           </div>
         </div>
       </section>
+
+      <AntiCrisisAuditPromo />
 
       <section id="formats" className="container mx-auto px-6 py-6 md:py-8">
         <div className="mb-6 text-center">

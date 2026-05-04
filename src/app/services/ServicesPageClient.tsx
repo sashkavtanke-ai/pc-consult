@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Layers3, WalletCards, Zap, Scale, Calculator } from 'lucide-react';
+import { Layers3, WalletCards, Zap, Scale, Calculator, ShieldCheck } from 'lucide-react';
 import PageHeader from '@/components/layout/PageHeader';
 import { fadeInItem, staggerContainer } from '@/lib/animations';
 
@@ -24,6 +24,12 @@ const serviceDirections = [
 ];
 
 const popularSolutions = [
+  {
+    title: 'Антикризисный аудит 590-П',
+    description: 'Расчет DTI и DSCR, оценка долговой нагрузки, налоговых рисков и план защиты cash flow.',
+    href: '/services/antikrizisnyy-audit-590p',
+    icon: <ShieldCheck size={24} className="text-accent" />,
+  },
   {
     title: 'Финансовая модель и управленческий учет',
     description: 'Сценарное планирование, P&L, Cash Flow, контроль KPI и принятие решений на цифрах.',

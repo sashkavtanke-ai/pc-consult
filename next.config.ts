@@ -15,6 +15,16 @@ const nextConfig: NextConfig = {
         destination: '/sitemap.xml',
         permanent: true,
       },
+      {
+        source: '/antikrizisnyy-audit-590-p-dlya-biznesa',
+        destination: '/services/antikrizisnyy-audit-590p',
+        permanent: true,
+      },
+      {
+        source: '/services/antikrizisnyy-audit-590-p-dlya-biznesa',
+        destination: '/services/antikrizisnyy-audit-590p',
+        permanent: true,
+      },
     ];
   },
 };
