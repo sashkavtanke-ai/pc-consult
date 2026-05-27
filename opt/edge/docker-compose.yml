@@ -1,0 +1,45 @@
+﻿networks:
+  edge_net:
+    external: true
+
+services:
+  apache_waf:
+    image: owasp/modsecurity-crs:apache
+    container_name: apache_waf
+    restart: unless-stopped
+    networks:
+      edge_net:
+        aliases:
+          - apachewaf
+    expose:
+      - "8080"
+    environment:
+      - PARANOIA=1
+      - ANOMALY_INBOUND=5
+      - ANOMALY_OUTBOUND=4
+      # if needed, enable more detailed audit logging:
+      # - MODSEC_AUDIT_LOG=/var/log/modsecurity/audit.log
+    volumes:
+      # Correct location for vhosts in this image
+      - /opt/edge/waf/conf.d/httpd-vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf:ro
+
+      # Optional custom modsecurity configs
+      # - /opt/edge/waf/modsecurity:/etc/modsecurity.d:ro
+
+  apache_proxy:
+    image: httpd:2.4
+    container_name: apache_proxy
+    restart: unless-stopped
+    networks:
+      - edge_net
+    ports:
+      - "80:80"
+      - "443:443"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - /opt/edge/proxy/httpd.conf:/usr/local/apache2/conf/httpd.conf:ro
+      - /opt/edge/proxy/conf.d:/usr/local/apache2/conf/conf.d:ro
+      - /opt/edge/letsencrypt/www:/var/www/letsencrypt:ro
+      - /opt/edge/letsencrypt/conf:/etc/letsencrypt:ro
+      - /opt/edge/letsencrypt/logs:/var/log/letsencrypt
